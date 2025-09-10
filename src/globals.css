@@ -1,69 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  /* Light mode (secondary) */
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 0 0% 3.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 3.9%;
-  --primary: 142.1 76.2% 36.3%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 0 0% 3.9%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 142.1 76.2% 36.3%;
-  --accent-foreground: 0 0% 98%;
+  /* Light mode - DPM.lol inspired */
+  --background: 225 15% 6%;
+  --foreground: 0 0% 95%;
+  --card: 225 15% 8%;
+  --card-foreground: 0 0% 95%;
+  --popover: 225 15% 6%;
+  --popover-foreground: 0 0% 95%;
+  --primary: 250 45% 75%;
+  --primary-foreground: 225 15% 6%;
+  --secondary: 225 15% 12%;
+  --secondary-foreground: 0 0% 95%;
+  --muted: 225 15% 12%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 250 45% 75%;
+  --accent-foreground: 225 15% 6%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 142.1 76.2% 36.3%;
+  --border: 225 15% 15%;
+  --input: 225 15% 12%;
+  --ring: 250 45% 75%;
   --radius: 0.75rem;
 
   /* Professional Portfolio Colors */
-  --hero-gradient-start: 142.1 76.2% 36.3%;
-  --hero-gradient-end: 217.2 91.2% 59.8%;
-  --skill-bar-bg: 210 40% 96.1%;
-  --skill-bar-fill: 142.1 76.2% 36.3%;
-  --card-hover: 0 0% 96%;
-  --text-gradient-start: 142.1 76.2% 36.3%;
-  --text-gradient-end: 217.2 91.2% 59.8%;
+  --hero-gradient-start: 250 45% 75%;
+  --hero-gradient-end: 225 35% 45%;
+  --skill-bar-bg: 225 15% 12%;
+  --skill-bar-fill: 250 45% 75%;
+  --card-hover: 225 15% 10%;
+  --text-gradient-start: 250 45% 75%;
+  --text-gradient-end: 225 35% 55%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark mode (primary) - DPM.LOL inspired */
-    --background: 0 0% 3.9%;
+    /* Dark mode - DPM.lol inspired */
+    --background: 225 15% 4%;
     --foreground: 0 0% 98%;
-    --card: 0 0% 6%;
+    --card: 225 15% 6%;
     --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
+    --popover: 225 15% 4%;
     --popover-foreground: 0 0% 98%;
-    --primary: 142.1 76.2% 36.3%;
-    --primary-foreground: 0 0% 3.9%;
-    --secondary: 210 40% 8%;
+    --primary: 250 45% 75%;
+    --primary-foreground: 225 15% 4%;
+    --secondary: 225 15% 8%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 142.1 76.2% 36.3%;
-    --accent-foreground: 0 0% 3.9%;
+    --muted: 225 15% 10%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 250 45% 75%;
+    --accent-foreground: 225 15% 4%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 142.1 76.2% 36.3%;
+    --border: 225 15% 12%;
+    --input: 225 15% 10%;
+    --ring: 250 45% 75%;
 
     /* Professional Portfolio Colors - Dark Mode */
-    --hero-gradient-start: 142.1 76.2% 36.3%;
-    --hero-gradient-end: 217.2 91.2% 59.8%;
-    --skill-bar-bg: 217.2 32.6% 17.5%;
-    --skill-bar-fill: 142.1 76.2% 36.3%;
-    --card-hover: 0 0% 8%;
-    --text-gradient-start: 142.1 76.2% 36.3%;
-    --text-gradient-end: 217.2 91.2% 59.8%;
+    --hero-gradient-start: 250 45% 75%;
+    --hero-gradient-end: 225 35% 35%;
+    --skill-bar-bg: 225 15% 10%;
+    --skill-bar-fill: 250 45% 75%;
+    --card-hover: 225 15% 8%;
+    --text-gradient-start: 250 45% 75%;
+    --text-gradient-end: 225 35% 45%;
   }
 }
 
@@ -113,7 +113,9 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -139,7 +141,11 @@ body {
 
 /* Hero gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-text-gradient-start), var(--color-text-gradient-end));
+  background: linear-gradient(
+    135deg,
+    var(--color-text-gradient-start),
+    var(--color-text-gradient-end)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -147,7 +153,12 @@ body {
 
 /* Hero gradient background */
 .hero-gradient {
-  background: linear-gradient(135deg, var(--color-hero-gradient-start) 0%, var(--color-hero-gradient-end) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-hero-gradient-start) 0%,
+    var(--color-hero-gradient-end) 100%
+  );
+  opacity: 0.95;
 }
 
 /* Card hover animation */
@@ -167,7 +178,11 @@ body {
 }
 
 .skill-bar-fill {
-  background: linear-gradient(90deg, var(--color-skill-bar-fill), var(--color-primary));
+  background: linear-gradient(
+    90deg,
+    var(--color-skill-bar-fill),
+    var(--color-primary)
+  );
 }
 
 /* Animation keyframes */
@@ -203,7 +218,8 @@ body {
 }
 
 @keyframes pulse-slow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {

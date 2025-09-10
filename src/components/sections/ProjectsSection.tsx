@@ -12,8 +12,10 @@ const ProjectsSection = () => {
     {
       id: 1,
       title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard. Built for scalability with microservices architecture.",
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description:
+        "Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard. Built for scalability with microservices architecture.",
+      image:
+        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
       category: "Full-Stack",
       liveUrl: "https://ecommerce-demo.com",
@@ -21,15 +23,17 @@ const ProjectsSection = () => {
       metrics: {
         performance: 96,
         users: "10K+",
-        uptime: "99.9%"
+        uptime: "99.9%",
       },
-      featured: true
+      featured: true,
     },
     {
       id: 2,
       title: "Task Management App",
-      description: "Collaborative project management tool with real-time updates, team collaboration features, and advanced reporting capabilities.",
-      image: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description:
+        "Collaborative project management tool with real-time updates, team collaboration features, and advanced reporting capabilities.",
+      image:
+        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       technologies: ["Next.js", "TypeScript", "Prisma", "Socket.io", "Vercel"],
       category: "Frontend",
       liveUrl: "https://taskmaster-app.com",
@@ -37,15 +41,17 @@ const ProjectsSection = () => {
       metrics: {
         performance: 98,
         users: "5K+",
-        uptime: "99.8%"
+        uptime: "99.8%",
       },
-      featured: true
+      featured: true,
     },
     {
       id: 3,
       title: "AI Content Generator",
-      description: "SaaS platform leveraging OpenAI APIs for content generation with user authentication, subscription management, and usage analytics.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description:
+        "SaaS platform leveraging OpenAI APIs for content generation with user authentication, subscription management, and usage analytics.",
+      image:
+        "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       technologies: ["React", "Express", "MongoDB", "OpenAI", "Stripe"],
       category: "Full-Stack",
       liveUrl: "https://ai-content-gen.com",
@@ -53,15 +59,17 @@ const ProjectsSection = () => {
       metrics: {
         performance: 94,
         users: "2K+",
-        uptime: "99.7%"
+        uptime: "99.7%",
       },
-      featured: false
+      featured: false,
     },
     {
       id: 4,
       title: "Real Estate Dashboard",
-      description: "Analytics dashboard for real estate professionals with property listings, market trends, and client management features.",
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description:
+        "Analytics dashboard for real estate professionals with property listings, market trends, and client management features.",
+      image:
+        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       technologies: ["Vue.js", "Python", "FastAPI", "PostgreSQL", "Charts.js"],
       category: "Frontend",
       liveUrl: "https://realestate-dashboard.com",
@@ -69,15 +77,17 @@ const ProjectsSection = () => {
       metrics: {
         performance: 92,
         users: "800+",
-        uptime: "99.5%"
+        uptime: "99.5%",
       },
-      featured: false
+      featured: false,
     },
     {
       id: 5,
       title: "Mobile Banking App",
-      description: "Secure mobile banking application with biometric authentication, transaction history, and budget tracking features.",
-      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description:
+        "Secure mobile banking application with biometric authentication, transaction history, and budget tracking features.",
+      image:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       technologies: ["React Native", "Node.js", "MongoDB", "Firebase", "Plaid"],
       category: "Mobile",
       liveUrl: "https://secure-banking-app.com",
@@ -85,15 +95,17 @@ const ProjectsSection = () => {
       metrics: {
         performance: 95,
         users: "15K+",
-        uptime: "99.9%"
+        uptime: "99.9%",
       },
-      featured: true
+      featured: true,
     },
     {
       id: 6,
       title: "DevOps Monitoring Suite",
-      description: "Comprehensive monitoring and alerting system for DevOps teams with custom dashboards and automated incident response.",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      description:
+        "Comprehensive monitoring and alerting system for DevOps teams with custom dashboards and automated incident response.",
+      image:
+        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       technologies: ["Python", "Docker", "Kubernetes", "Grafana", "Prometheus"],
       category: "Backend",
       liveUrl: "https://devops-monitor.com",
@@ -101,17 +113,18 @@ const ProjectsSection = () => {
       metrics: {
         performance: 97,
         users: "500+",
-        uptime: "99.9%"
+        uptime: "99.9%",
       },
-      featured: false
-    }
+      featured: false,
+    },
   ];
 
   const categories = ["All", "Full-Stack", "Frontend", "Backend", "Mobile"];
 
-  const filteredProjects = selectedFilter === "All" 
-    ? projects 
-    : projects.filter(project => project.category === selectedFilter);
+  const filteredProjects =
+    selectedFilter === "All"
+      ? projects
+      : projects.filter(project => project.category === selectedFilter);
 
   const featuredProjects = projects.filter(project => project.featured);
 
@@ -124,19 +137,21 @@ const ProjectsSection = () => {
             Featured <span className="gradient-text">Projects</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            A showcase of my recent work, demonstrating expertise across different 
-            technologies and domains. Each project represents a unique challenge 
-            and innovative solution.
+            A showcase of my recent work, demonstrating expertise across
+            different technologies and domains. Each project represents a unique
+            challenge and innovative solution.
           </p>
         </div>
 
         {/* Featured Projects */}
         <div className="mb-16">
-          <h3 className="text-2xl font-semibold mb-8 text-center">Highlighted Work</h3>
+          <h3 className="text-2xl font-semibold mb-8 text-center">
+            Highlighted Work
+          </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProjects.map((project, index) => (
-              <Card 
-                key={project.id} 
+              <Card
+                key={project.id}
                 className="card-hover overflow-hidden animate-fade-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -154,7 +169,7 @@ const ProjectsSection = () => {
                     </Badge>
                   </div>
                 </div>
-                
+
                 <CardHeader>
                   <h4 className="text-xl font-semibold">{project.title}</h4>
                   <p className="text-muted-foreground text-sm leading-relaxed">
@@ -165,7 +180,7 @@ const ProjectsSection = () => {
                 <CardContent className="pt-0">
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech) => (
+                    {project.technologies.map(tech => (
                       <Badge key={tech} variant="outline" className="text-xs">
                         {tech}
                       </Badge>
@@ -178,7 +193,9 @@ const ProjectsSection = () => {
                       <div className="text-lg font-semibold text-primary">
                         {project.metrics.performance}
                       </div>
-                      <div className="text-xs text-muted-foreground">Performance</div>
+                      <div className="text-xs text-muted-foreground">
+                        Performance
+                      </div>
                     </div>
                     <div>
                       <div className="text-lg font-semibold text-primary">
@@ -190,22 +207,24 @@ const ProjectsSection = () => {
                       <div className="text-lg font-semibold text-primary">
                         {project.metrics.uptime}
                       </div>
-                      <div className="text-xs text-muted-foreground">Uptime</div>
+                      <div className="text-xs text-muted-foreground">
+                        Uptime
+                      </div>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
                   <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       className="flex-1"
                       onClick={() => window.open(project.liveUrl, "_blank")}
                     >
                       <ExternalLink className="h-4 w-4 mr-2" />
                       Live Demo
                     </Button>
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => window.open(project.githubUrl, "_blank")}
                     >
@@ -222,15 +241,17 @@ const ProjectsSection = () => {
         <div>
           <div className="flex items-center justify-between mb-8">
             <h3 className="text-2xl font-semibold">All Projects</h3>
-            
+
             {/* Filter Buttons */}
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-muted-foreground" />
               <div className="flex gap-2">
-                {categories.map((category) => (
+                {categories.map(category => (
                   <Button
                     key={category}
-                    variant={selectedFilter === category ? "default" : "outline"}
+                    variant={
+                      selectedFilter === category ? "default" : "outline"
+                    }
                     size="sm"
                     onClick={() => setSelectedFilter(category)}
                     className="text-xs"
@@ -244,8 +265,8 @@ const ProjectsSection = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProjects.map((project, index) => (
-              <Card 
-                key={project.id} 
+              <Card
+                key={project.id}
                 className="card-hover overflow-hidden animate-fade-up"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
@@ -266,12 +287,19 @@ const ProjectsSection = () => {
 
                 <CardContent className="p-4">
                   <h4 className="font-semibold mb-2">{project.title}</h4>
-                  <p className="text-muted-foreground text-sm mb-3 overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                  <p
+                    className="text-muted-foreground text-sm mb-3 overflow-hidden"
+                    style={{
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
                     {project.description}
                   </p>
-                  
+
                   <div className="flex flex-wrap gap-1 mb-3">
-                    {project.technologies.slice(0, 3).map((tech) => (
+                    {project.technologies.slice(0, 3).map(tech => (
                       <Badge key={tech} variant="outline" className="text-xs">
                         {tech}
                       </Badge>
@@ -284,16 +312,16 @@ const ProjectsSection = () => {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       className="flex-1 text-xs"
                       onClick={() => window.open(project.liveUrl, "_blank")}
                     >
                       <ExternalLink className="h-3 w-3 mr-1" />
                       View
                     </Button>
-                    <Button 
-                      size="sm" 
+                    <Button
+                      size="sm"
                       variant="outline"
                       onClick={() => window.open(project.githubUrl, "_blank")}
                     >

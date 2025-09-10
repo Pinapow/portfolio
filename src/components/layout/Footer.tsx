@@ -3,7 +3,7 @@ import { ArrowUp, Heart } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const currentYear = new Date().getFullYear();
@@ -25,18 +25,18 @@ const Footer = () => {
 
           {/* Logo */}
           <div className="text-center">
-            <h3 className="gradient-text font-bold text-xl mb-2">Alex Thompson</h3>
+            <h3 className="gradient-text font-bold text-xl mb-2">
+              Phuong LE
+            </h3>
             <p className="text-muted-foreground text-sm">
-              Senior Full-Stack Developer
+              Full-Stack Developer
             </p>
           </div>
 
           {/* Copyright */}
           <div className="text-center text-sm text-muted-foreground">
             <p className="flex items-center justify-center gap-1">
-              © {currentYear} Alex Thompson. Built with 
-              <Heart className="h-4 w-4 text-red-500 fill-current" />
-              using React & TypeScript
+              © {currentYear} Phuong LE. Built with React & TypeScript
             </p>
           </div>
         </div>

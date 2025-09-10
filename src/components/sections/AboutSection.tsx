@@ -1,79 +1,99 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Code2, 
-  Database, 
-  Cloud, 
-  Smartphone, 
+import {
+  Code2,
+  Database,
+  Cloud,
+  Smartphone,
   Calendar,
   MapPin,
-  GraduationCap
+  GraduationCap,
 } from "lucide-react";
 
 const AboutSection = () => {
   const skills = [
-    { name: "React/Next.js", level: 95, category: "Frontend" },
-    { name: "TypeScript", level: 90, category: "Languages" },
-    { name: "Node.js", level: 88, category: "Backend" },
-    { name: "PostgreSQL", level: 85, category: "Database" },
-    { name: "AWS/Azure", level: 82, category: "Cloud" },
-    { name: "Python", level: 78, category: "Languages" },
-    { name: "Docker", level: 75, category: "DevOps" },
-    { name: "GraphQL", level: 70, category: "API" },
+    { name: "Java 21/Spring 6", level: 95, category: "Languages" },
+    { name: "Php/Symfony", level: 95, category: "Languages" },
+    { name: "Python", level: 90, category: "Languages" },
+    { name: "C/C++", level: 88, category: "Languages" },
+    { name: "React/TypeScript", level: 85, category: "Languages" },
+    { name: "PostgreSQL/MySQL", level: 75, category: "Database" },
+    { name: "MongoDB", level: 70, category: "Database" },
+    { name: "AWS", level: 75, category: "DevOps" },
+    { name: "Docker", level: 70, category: "DevOps" },
+    { name: "Git", level: 85, category: "DevOps" },
   ];
 
   const expertiseAreas = [
     {
       icon: Code2,
       title: "Frontend Development",
-      description: "Modern React applications with TypeScript, Next.js, and state-of-the-art UI libraries.",
-      technologies: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"]
+      description:
+        "Modern React applications with TypeScript and state-of-the-art UI libraries.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+      ],
     },
     {
       icon: Database,
       title: "Backend Architecture",
-      description: "Scalable server-side solutions with microservices, APIs, and database optimization.",
-      technologies: ["Node.js", "Express", "PostgreSQL", "MongoDB", "Redis"]
+      description:
+        "Scalable server-side solutions with microservices, APIs, and database optimization.",
+      technologies: [
+          "Java 21",
+          "Spring 6",
+          "PostgreSQL",
+          "MongoDB",
+          "Redis"
+      ],
     },
     {
       icon: Cloud,
       title: "Cloud & DevOps",
-      description: "Cloud-native applications with CI/CD pipelines, containerization, and monitoring.",
-      technologies: ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Terraform"]
+      description:
+        "Cloud-native applications with CI/CD pipelines, containerization, and monitoring.",
+      technologies: [
+        "AWS",
+        "Docker",
+        "Kubernetes",
+        "GitHub Actions",
+        "Terraform",
+      ],
     },
-    {
+    /* {
       icon: Smartphone,
       title: "Mobile Development",
-      description: "Cross-platform mobile applications with React Native and progressive web apps.",
-      technologies: ["React Native", "Expo", "PWA", "Firebase", "App Store"]
-    }
+      description:
+        "Cross-platform mobile applications with React Native and progressive web apps.",
+      technologies: ["React Native", "Expo", "PWA", "Firebase", "App Store"],
+    }, */
   ];
 
   const timeline = [
     {
-      year: "2019",
-      title: "Started as Junior Developer",
-      company: "TechStart Inc.",
-      description: "Began my journey in web development, focusing on React and modern JavaScript."
+      year: "09/2024 – 09/2025",
+      title: "Work-study Full-stack Developer",
+      company: "Cash Flow Positif",
+      description:
+      `— Architecture migration: Migration from Symfony/Twig to API Platform/React
+      — Full-stack development: Development of a REST API, front-end and business automations with third-party services
+      — DevOps and optimisation: Python scripts for database migration, AWS/Docker deployment
+      `,
     },
     {
-      year: "2021",
-      title: "Mid-Level Full-Stack Developer",
-      company: "Growth Solutions",
-      description: "Expanded to full-stack development, working with Node.js, databases, and cloud services."
+      year: "05/2024 – 09/2024",
+      title: "Research Intern",
+      company: "Laboratoire Institut Gustave Eiffel",
+      description:
+      `— Multi-agent algorithms: Development of trajectory planning (Held-Karp, Q-Learning)
+      — Robotic simulation: ROS2/Gazebo testing
+      — Embedded programming: Python/C development, inter-drone P2P communication and performance data analysis
+      — Computer vision: Object detection and recognition using OpenCV and Nimbus
+      `,
+
     },
-    {
-      year: "2023",
-      title: "Senior Full-Stack Developer",
-      company: "Enterprise Corp",
-      description: "Leading development teams, architecting large-scale applications, and mentoring junior developers."
-    },
-    {
-      year: "2024",
-      title: "Technical Lead",
-      company: "Innovation Labs",
-      description: "Spearheading technical decisions, implementing best practices, and driving digital transformation."
-    }
   ];
 
   return (
@@ -85,9 +105,9 @@ const AboutSection = () => {
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Passionate about creating digital solutions that make a difference. 
-            I combine technical expertise with creative problem-solving to deliver 
-            exceptional user experiences.
+            Passionate about creating digital solutions that make a difference.
+            I combine technical expertise with creative problem-solving to
+            deliver exceptional user experiences.
           </p>
         </div>
 
@@ -96,21 +116,20 @@ const AboutSection = () => {
           <div className="animate-slide-in">
             <h3 className="text-2xl font-semibold mb-6">My Story</h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              &quot;With over 5 years of experience in full-stack development, I&apos;ve had the privilege
-              of working with startups and enterprise companies, helping them transform ideas
-              into successful digital products.&quot;
+
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              I believe in writing clean, maintainable code and staying up-to-date with the 
-              latest technologies. My approach combines technical excellence with user-centered 
-              design to create applications that not only work flawlessly but also provide 
+              I believe in writing clean, maintainable code and staying
+              up-to-date with the latest technologies. My approach combines
+              technical excellence with user-centered design to create
+              applications that not only work flawlessly but also provide
               exceptional user experiences.
             </p>
 
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                <span>San Francisco, CA</span>
+                <span>Meaux, Seine-et-Marne</span>
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
@@ -118,13 +137,15 @@ const AboutSection = () => {
               </div>
               <div className="flex items-center gap-2">
                 <GraduationCap className="h-4 w-4" />
-                <span>Computer Science, Stanford University</span>
+                <span>Master Software and Data Engineering, Université Gustave Eiffel</span>
               </div>
             </div>
           </div>
 
           <div className="animate-fade-in">
-            <h3 className="text-2xl font-semibold mb-6">Skills & Technologies</h3>
+            <h3 className="text-2xl font-semibold mb-6">
+              Skills & Technologies
+            </h3>
             <div className="space-y-4">
               {skills.map((skill, index) => (
                 <div key={skill.name} className="space-y-2">
@@ -135,11 +156,11 @@ const AboutSection = () => {
                     </Badge>
                   </div>
                   <div className="skill-bar h-2 rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="skill-bar-fill h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{ 
+                      style={{
                         width: `${skill.level}%`,
-                        animationDelay: `${index * 0.1}s`
+                        animationDelay: `${index * 0.1}s`,
                       }}
                     />
                   </div>
@@ -151,12 +172,14 @@ const AboutSection = () => {
 
         {/* Expertise Areas */}
         <div className="mb-16">
-          <h3 className="text-2xl font-semibold text-center mb-8">Areas of Expertise</h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <h3 className="text-2xl font-semibold text-center mb-8">
+            Areas of Expertise
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
             {expertiseAreas.map((area, index) => (
-              <Card 
-                key={area.title} 
-                className="card-hover border-border/50 animate-fade-up"
+              <Card
+                key={area.title}
+                className="card-hover border-border/50 animate-fade-up w-full max-w-sm"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="p-6 text-center">
@@ -166,9 +189,11 @@ const AboutSection = () => {
                     </div>
                   </div>
                   <h4 className="font-semibold mb-2">{area.title}</h4>
-                  <p className="text-sm text-muted-foreground mb-4">{area.description}</p>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {area.description}
+                  </p>
                   <div className="flex flex-wrap gap-1 justify-center">
-                    {area.technologies.map((tech) => (
+                    {area.technologies.map(tech => (
                       <Badge key={tech} variant="outline" className="text-xs">
                         {tech}
                       </Badge>
@@ -182,11 +207,13 @@ const AboutSection = () => {
 
         {/* Career Timeline */}
         <div>
-          <h3 className="text-2xl font-semibold text-center mb-8">Career Journey</h3>
+          <h3 className="text-2xl font-semibold text-center mb-8">
+            Career Journey
+          </h3>
           <div className="max-w-3xl mx-auto">
             {timeline.map((item, index) => (
-              <div 
-                key={item.year} 
+              <div
+                key={item.year}
                 className="flex gap-6 pb-8 animate-slide-in"
                 style={{ animationDelay: `${index * 0.2}s` }}
               >
@@ -201,8 +228,10 @@ const AboutSection = () => {
                     <Badge variant="outline">{item.year}</Badge>
                     <h4 className="font-semibold">{item.title}</h4>
                   </div>
-                  <p className="text-primary font-medium mb-2">{item.company}</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-primary font-medium mb-2">
+                    {item.company}
+                  </p>
+                  <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
                     {item.description}
                   </p>
                 </div>

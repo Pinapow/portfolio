@@ -11,7 +11,7 @@ import Footer from "@/components/layout/Footer";
 export default function Home() {
   useEffect(() => {
     // Set dark mode as default
-    document.documentElement.classList.add('dark');
+    document.documentElement.classList.add("dark");
   }, []);
 
   return (

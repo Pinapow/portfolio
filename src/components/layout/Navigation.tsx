@@ -22,7 +22,9 @@ const Navigation = () => {
   ];
 
   const handleScroll = useCallback(() => {
-    const sections = navigationItems.map((item) => document.getElementById(item.id));
+    const sections = navigationItems.map(item =>
+      document.getElementById(item.id)
+    );
     const scrollPosition = window.scrollY + 100;
 
     for (let i = sections.length - 1; i >= 0; i--) {
@@ -56,17 +58,19 @@ const Navigation = () => {
               onClick={() => scrollToSection("home")}
               className="gradient-text font-bold text-xl tracking-tight hover:opacity-80 transition-opacity"
             >
-              Alex Thompson
+              Phuong LE
             </button>
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
+            {navigationItems.map(item => (
               <button
                 key={item.id}
                 onClick={() => scrollToSection(item.id)}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
-                  activeSection === item.id ? "text-primary" : "text-muted-foreground"
+                  activeSection === item.id
+                    ? "text-primary"
+                    : "text-muted-foreground"
                 }`}
               >
                 {item.label}
@@ -76,7 +80,7 @@ const Navigation = () => {
 
           <div className="flex items-center space-x-4">
             <div className="hidden md:flex items-center space-x-3">
-              {socialLinks.map((link) => (
+              {socialLinks.map(link => (
                 <a
                   key={link.label}
                   href={link.href}
@@ -96,7 +100,11 @@ const Navigation = () => {
                 className="text-foreground hover:text-primary transition-colors"
                 aria-label="Toggle menu"
               >
-                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
@@ -105,7 +113,7 @@ const Navigation = () => {
         {isOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-card/95 backdrop-blur-sm border rounded-lg mt-2">
-              {navigationItems.map((item) => (
+              {navigationItems.map(item => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -120,7 +128,7 @@ const Navigation = () => {
               ))}
 
               <div className="flex items-center justify-center space-x-4 pt-4 border-t border-border">
-                {socialLinks.map((link) => (
+                {socialLinks.map(link => (
                   <a
                     key={link.label}
                     href={link.href}

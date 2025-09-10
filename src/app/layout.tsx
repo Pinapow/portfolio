@@ -5,8 +5,9 @@ import "../globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Professional Developer",
-  description: "A modern portfolio showcasing professional development work and skills.",
+  title: "Portfolio",
+  description:
+    "A modern portfolio showcasing professional development work and skills.",
 };
 
 export default function RootLayout({
@@ -16,9 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={inter.className}>
-        {children}
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

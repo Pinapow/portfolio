@@ -5,16 +5,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  Send, 
-  Linkedin, 
-  Github, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  Linkedin,
+  Github,
   Twitter,
-  CheckCircle 
+  CheckCircle,
 } from "lucide-react";
 
 const ContactSection = () => {
@@ -24,43 +24,48 @@ const ContactSection = () => {
     name: "",
     email: "",
     subject: "",
-    message: ""
+    message: "",
   });
 
   const contactInfo = [
     {
       icon: Mail,
       label: "Email",
-      value: "alex@alexthompson.dev",
-      href: "mailto:alex@alexthompson.dev"
+      value: "phuong.le77100@gmail.com",
+      href: "mailto:phuong.le77100@gmail.com",
     },
     {
       icon: Phone,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      value: "+33 6 95 32 43 98",
+      href: "tel:+33695324398",
     },
     {
       icon: MapPin,
       label: "Location",
-      value: "San Francisco, CA",
-      href: "https://maps.google.com/?q=San+Francisco,CA"
+      value: "Meaux, Seine-et-Marne, France",
+      href: "https://maps.app.goo.gl/zY8ZEXHXCMJWLW118",
     },
     {
       icon: Clock,
       label: "Availability",
       value: "Mon - Fri, 9AM - 6PM PST",
-      href: null
-    }
+      href: null,
+    },
   ];
 
   const socialLinks = [
-    { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/alexthompson" },
-    { icon: Github, label: "GitHub", href: "https://github.com/alexthompson" },
-    { icon: Twitter, label: "Twitter", href: "https://twitter.com/alexthompson" }
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://linkedin.com/in/phuong-le77100",
+    },
+    { icon: Github, label: "GitHub", href: "https://github.com/pinapow" },
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -72,13 +77,14 @@ const ContactSection = () => {
     // Simulate form submission
     try {
       await new Promise(resolve => setTimeout(resolve, 2000));
-      
+
       toast({
         title: "Message sent successfully!",
-        description: "Thank you for reaching out. I'll get back to you within 24 hours.",
+        description:
+          "Thank you for reaching out. I'll get back to you within 24 hours.",
         duration: 5000,
       });
-      
+
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch {
       toast({
@@ -101,8 +107,9 @@ const ContactSection = () => {
             Get In <span className="gradient-text">Touch</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            &quot;Ready to bring your ideas to life? Let&apos;s discuss your project and
-            explore how we can work together to create something amazing.&quot;
+            &quot;Ready to bring your ideas to life? Let&apos;s discuss your
+            project and explore how we can work together to create something
+            amazing.&quot;
           </p>
         </div>
 
@@ -110,19 +117,22 @@ const ContactSection = () => {
           {/* Contact Information */}
           <div className="animate-slide-in">
             <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4">Let&apos;s Connect</h3>
+              <h3 className="text-2xl font-semibold mb-4">
+                Let&apos;s Connect
+              </h3>
               <p className="text-muted-foreground leading-relaxed">
-                &quot;I&apos;m always interested in new opportunities, collaborations, and
-                challenging projects. Whether you&apos;re looking for a technical
-                consultant, full-stack developer, or just want to chat about
-                technology, feel free to reach out.&quot;
+                &quot;I&apos;m always interested in new opportunities,
+                collaborations, and challenging projects. Whether you&apos;re
+                looking for a technical consultant, full-stack developer, or
+                just want to chat about technology, feel free to reach
+                out.&quot;
               </p>
             </div>
 
             {/* Contact Details */}
             <div className="space-y-4 mb-8">
               {contactInfo.map((info, index) => (
-                <div 
+                <div
                   key={info.label}
                   className="flex items-center gap-4 animate-fade-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
@@ -133,10 +143,16 @@ const ContactSection = () => {
                   <div>
                     <div className="font-medium">{info.label}</div>
                     {info.href ? (
-                      <a 
+                      <a
                         href={info.href}
-                        target={info.href.startsWith('http') ? '_blank' : undefined}
-                        rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                        target={
+                          info.href.startsWith("http") ? "_blank" : undefined
+                        }
+                        rel={
+                          info.href.startsWith("http")
+                            ? "noopener noreferrer"
+                            : undefined
+                        }
                         className="text-muted-foreground hover:text-primary transition-colors"
                       >
                         {info.value}
@@ -250,9 +266,9 @@ const ContactSection = () => {
                     />
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    className="w-full" 
+                  <Button
+                    type="submit"
+                    className="w-full"
                     size="lg"
                     disabled={isSubmitting}
                   >
