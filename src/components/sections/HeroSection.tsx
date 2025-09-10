@@ -54,7 +54,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container-custom text-center">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Profile Photo */}
         <div className="mb-8 animate-fade-in">
           <div className="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 relative">
@@ -69,7 +69,7 @@ const HeroSection = () => {
         </div>
 
         {/* Main Content */}
-        <div className="max-w-4xl mx-auto animate-fade-up">
+        <div className="max-w-4xl mx-auto animate-fade-up flex flex-col items-center">
           <h1 className="text-4xl md:text-6xl lg:text-hero font-bold mb-6 leading-tight">
             Hi, I&apos;m <span className="gradient-text">Phuong LE</span>
           </h1>
@@ -86,7 +86,7 @@ const HeroSection = () => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
@@ -126,7 +126,7 @@ const HeroSection = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute left-1/2 transform -translate-x-1/2 animate-bounce">
           <button
             onClick={scrollToAbout}
             className="text-primary hover:text-primary/80 transition-colors"

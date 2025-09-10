@@ -1,9 +1,56 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ExternalLink, Github, Filter } from "lucide-react";
 import Image from "next/image";
+
+const TruncatedDescription = ({ description, className = "", maxLines = 3 }) => {
+  const [isOverflowing, setIsOverflowing] = useState(false);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const element = textRef.current;
+    if (element) {
+      const lineHeight = parseInt(window.getComputedStyle(element).lineHeight);
+      const maxHeight = lineHeight * maxLines;
+      setIsOverflowing(element.scrollHeight > maxHeight);
+    }
+  }, [description, maxLines]);
+
+  if (!isOverflowing) {
+    return (
+      <p
+        ref={textRef}
+        className={`${className} line-clamp-${maxLines}`}
+      >
+        {description}
+      </p>
+    );
+  }
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <p
+          ref={textRef}
+          className={`${className} line-clamp-${maxLines} cursor-help`}
+        >
+          {description}
+        </p>
+      </TooltipTrigger>
+      <TooltipContent className="max-w-xs p-3">
+        <p className="text-sm">{description}</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+};
 
 const ProjectsSection = () => {
   const [selectedFilter, setSelectedFilter] = useState("All");
@@ -11,110 +58,86 @@ const ProjectsSection = () => {
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
+      title: "BooqIn",
       description:
-        "Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard. Built for scalability with microservices architecture.",
-      image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React", "Node.js", "PostgreSQL", "Stripe", "AWS"],
+        `BooqIn is a platform for managing and lending books between users.
+         The site allows users to create collections, share their books and borrow those of other users.`,
+      image: "/available_soon.jpg",
+      technologies: ["React", "Java 21", "Spring 6", "Stripe", "Google Books API", "Thymeleaf", "Docker"],
       category: "Full-Stack",
-      liveUrl: "https://ecommerce-demo.com",
-      githubUrl: "https://github.com/alexthompson/ecommerce",
-      metrics: {
-        performance: 96,
-        users: "10K+",
-        uptime: "99.9%",
-      },
+      liveUrl: undefined,
+      githubUrl: "https://github.com/Pinapow/booqin",
+      metrics: undefined,
       featured: true,
     },
     {
       id: 2,
-      title: "Task Management App",
+      title: "Chadow",
       description:
-        "Collaborative project management tool with real-time updates, team collaboration features, and advanced reporting capabilities.",
-      image:
-        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Next.js", "TypeScript", "Prisma", "Socket.io", "Vercel"],
-      category: "Frontend",
-      liveUrl: "https://taskmaster-app.com",
-      githubUrl: "https://github.com/alexthompson/taskmaster",
-      metrics: {
-        performance: 98,
-        users: "5K+",
-        uptime: "99.8%",
-      },
+        `
+         The Chadow Project aims to enable an online chat server to facilitate file sharing between connected users,
+         while preserving the anonymity of IP addresses. This protocol aims to offer two download modes: open mode,
+         where clients connect directly to each other, and hidden mode, where a proxy system is used to mask IP addresses.
+        `,
+      image: "/available_soon.jpg",
+      technologies: ["Java 21"],
+      category: "Backend",
+      liveUrl: undefined,
+      githubUrl: "https://github.com/Pinapow/chadow",
+      metrics: undefined,
       featured: true,
     },
     {
       id: 3,
-      title: "AI Content Generator",
+      title: "BooqIn - Android Version",
       description:
-        "SaaS platform leveraging OpenAI APIs for content generation with user authentication, subscription management, and usage analytics.",
-      image:
-        "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React", "Express", "MongoDB", "OpenAI", "Stripe"],
-      category: "Full-Stack",
-      liveUrl: "https://ai-content-gen.com",
-      githubUrl: "https://github.com/alexthompson/ai-content",
-      metrics: {
-        performance: 94,
-        users: "2K+",
-        uptime: "99.7%",
-      },
-      featured: false,
+        `
+        BooqIn is a platform for managing and lending books between users.
+        The site allows users to create collections, share their books and borrow those of other users.
+        Adapt to android mobile user.
+        `,
+      image: "/android.png",
+      technologies: ["Kotlin"],
+      category: "Mobile",
+      liveUrl: undefined,
+      githubUrl: "https://github.com/Pinapow/booqin-android",
+      metrics: undefined,
+      featured: true,
     },
     {
       id: 4,
-      title: "Real Estate Dashboard",
+      title: "Nasm Compilator",
       description:
-        "Analytics dashboard for real estate professionals with property listings, market trends, and client management features.",
+        `
+        The objective of this project is to program a
+        compiler that detects semantic errors and produces target code in NASM assembly language for
+        the TPC programming language.
+        `,
       image:
-        "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Vue.js", "Python", "FastAPI", "PostgreSQL", "Charts.js"],
-      category: "Frontend",
-      liveUrl: "https://realestate-dashboard.com",
-      githubUrl: "https://github.com/alexthompson/realestate",
-      metrics: {
-        performance: 92,
-        users: "800+",
-        uptime: "99.5%",
-      },
+        "/available_soon.jpg",
+      technologies: ["C", "Yacc", "Lex"],
+      category: "Backend",
+      liveUrl: undefined,
+      githubUrl: "https://github.com/Pinapow/nasm-compilator",
+      metrics: undefined,
       featured: false,
     },
     {
       id: 5,
-      title: "Mobile Banking App",
+      title: "GitClout",
       description:
-        "Secure mobile banking application with biometric authentication, transaction history, and budget tracking features.",
+        `
+        The aim of the GitClout project is to write a web application that analyses the tags in a git repository
+        (e.g. on GitHub or GitLab) and displays various information to provide
+        a better understanding of each contributor's contributions.
+        `,
       image:
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["React Native", "Node.js", "MongoDB", "Firebase", "Plaid"],
-      category: "Mobile",
-      liveUrl: "https://secure-banking-app.com",
-      githubUrl: "https://github.com/alexthompson/banking-app",
-      metrics: {
-        performance: 95,
-        users: "15K+",
-        uptime: "99.9%",
-      },
-      featured: true,
-    },
-    {
-      id: 6,
-      title: "DevOps Monitoring Suite",
-      description:
-        "Comprehensive monitoring and alerting system for DevOps teams with custom dashboards and automated incident response.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      technologies: ["Python", "Docker", "Kubernetes", "Grafana", "Prometheus"],
-      category: "Backend",
-      liveUrl: "https://devops-monitor.com",
-      githubUrl: "https://github.com/alexthompson/devops-suite",
-      metrics: {
-        performance: 97,
-        users: "500+",
-        uptime: "99.9%",
-      },
+        "/available_soon.jpg",
+      technologies: ["Java 21", "Spring 6", "Vue.js", "BulmaCSS", "Jgit", "HyperSQL"],
+      category: "Full-Stack",
+      liveUrl: undefined,
+      githubUrl: "https://github.com/Pinapow/gitclout",
+      metrics: undefined,
       featured: false,
     },
   ];
@@ -129,8 +152,9 @@ const ProjectsSection = () => {
   const featuredProjects = projects.filter(project => project.featured);
 
   return (
-    <section id="projects" className="section-padding">
-      <div className="container-custom">
+    <TooltipProvider>
+      <section id="projects" className="section-padding">
+        <div className="container-custom">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -152,7 +176,7 @@ const ProjectsSection = () => {
             {featuredProjects.map((project, index) => (
               <Card
                 key={project.id}
-                className="card-hover overflow-hidden animate-fade-up"
+                className="card-hover overflow-hidden animate-fade-up flex flex-col h-full"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="relative overflow-hidden">
@@ -170,16 +194,18 @@ const ProjectsSection = () => {
                   </div>
                 </div>
 
-                <CardHeader>
-                  <h4 className="text-xl font-semibold">{project.title}</h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {project.description}
-                  </p>
+                <CardHeader className="flex-shrink-0">
+                  <h4 className="text-xl font-semibold line-clamp-2">{project.title}</h4>
+                  <TruncatedDescription 
+                    description={project.description}
+                    className="text-muted-foreground text-sm leading-relaxed"
+                    maxLines={3}
+                  />
                 </CardHeader>
 
-                <CardContent className="pt-0">
+                <CardContent className="pt-0 flex flex-col flex-grow">
                   {/* Technologies */}
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-4 min-h-[2.5rem]">
                     {project.technologies.map(tech => (
                       <Badge key={tech} variant="outline" className="text-xs">
                         {tech}
@@ -188,44 +214,49 @@ const ProjectsSection = () => {
                   </div>
 
                   {/* Metrics */}
-                  <div className="grid grid-cols-3 gap-4 mb-4 text-center">
-                    <div>
-                      <div className="text-lg font-semibold text-primary">
-                        {project.metrics.performance}
+                  {project.metrics && (
+                    <div className="grid grid-cols-3 gap-4 mb-4 text-center flex-shrink-0">
+                      <div>
+                        <div className="text-lg font-semibold text-primary">
+                          {project.metrics.performance}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Performance
+                        </div>
                       </div>
-                      <div className="text-xs text-muted-foreground">
-                        Performance
+                      <div>
+                        <div className="text-lg font-semibold text-primary">
+                          {project.metrics.users}
+                        </div>
+                        <div className="text-xs text-muted-foreground">Users</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-semibold text-primary">
+                          {project.metrics.uptime}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Uptime
+                        </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="text-lg font-semibold text-primary">
-                        {project.metrics.users}
-                      </div>
-                      <div className="text-xs text-muted-foreground">Users</div>
-                    </div>
-                    <div>
-                      <div className="text-lg font-semibold text-primary">
-                        {project.metrics.uptime}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        Uptime
-                      </div>
-                    </div>
-                  </div>
+                  )}
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      className="flex-1"
-                      onClick={() => window.open(project.liveUrl, "_blank")}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-2" />
-                      Live Demo
-                    </Button>
+                  <div className="flex gap-2 mt-auto">
+                    {project.liveUrl && (
+                      <Button
+                        size="sm"
+                        className="flex-1"
+                        onClick={() => window.open(project.liveUrl, "_blank")}
+                      >
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Live Demo
+                      </Button>
+                    )}
                     <Button
                       size="sm"
                       variant="outline"
+                      className={project.liveUrl ? "" : "flex-1"}
                       onClick={() => window.open(project.githubUrl, "_blank")}
                     >
                       <Github className="h-4 w-4" />
@@ -267,7 +298,7 @@ const ProjectsSection = () => {
             {filteredProjects.map((project, index) => (
               <Card
                 key={project.id}
-                className="card-hover overflow-hidden animate-fade-up"
+                className="card-hover overflow-hidden animate-fade-up flex flex-col h-full"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className="relative overflow-hidden">
@@ -285,20 +316,17 @@ const ProjectsSection = () => {
                   </div>
                 </div>
 
-                <CardContent className="p-4">
-                  <h4 className="font-semibold mb-2">{project.title}</h4>
-                  <p
-                    className="text-muted-foreground text-sm mb-3 overflow-hidden"
-                    style={{
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                    }}
-                  >
-                    {project.description}
-                  </p>
+                <CardContent className="p-4 flex flex-col flex-grow">
+                  <h4 className="font-semibold mb-2 line-clamp-1">{project.title}</h4>
+                  <div className="mb-3 flex-grow">
+                    <TruncatedDescription 
+                      description={project.description}
+                      className="text-muted-foreground text-sm"
+                      maxLines={2}
+                    />
+                  </div>
 
-                  <div className="flex flex-wrap gap-1 mb-3">
+                  <div className="flex flex-wrap gap-1 mb-3 min-h-[1.75rem]">
                     {project.technologies.slice(0, 3).map(tech => (
                       <Badge key={tech} variant="outline" className="text-xs">
                         {tech}
@@ -311,18 +339,21 @@ const ProjectsSection = () => {
                     )}
                   </div>
 
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      className="flex-1 text-xs"
-                      onClick={() => window.open(project.liveUrl, "_blank")}
-                    >
-                      <ExternalLink className="h-3 w-3 mr-1" />
-                      View
-                    </Button>
+                  <div className="flex gap-2 mt-auto">
+                    {project.liveUrl && (
+                      <Button
+                        size="sm"
+                        className="flex-1 text-xs"
+                        onClick={() => window.open(project.liveUrl, "_blank")}
+                      >
+                        <ExternalLink className="h-3 w-3 mr-1" />
+                        View
+                      </Button>
+                    )}
                     <Button
                       size="sm"
                       variant="outline"
+                      className={project.liveUrl ? "" : "flex-1"}
                       onClick={() => window.open(project.githubUrl, "_blank")}
                     >
                       <Github className="h-3 w-3" />
@@ -335,6 +366,7 @@ const ProjectsSection = () => {
         </div>
       </div>
     </section>
+    </TooltipProvider>
   );
 };
 

@@ -16,9 +16,9 @@ const Navigation = () => {
   );
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Mail, href: "mailto:alex@example.com", label: "Email" },
+    { icon: Github, href: "https://github.com/pinapow", label: "GitHub" },
+    { icon: Linkedin, href: "https://linkedin.com/in/phuong-le77100", label: "LinkedIn" },
+    { icon: Mail, href: "mailto:phuong.le77100@gmail.com", label: "Email" },
   ];
 
   const handleScroll = useCallback(() => {

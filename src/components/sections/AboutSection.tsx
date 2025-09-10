@@ -45,11 +45,13 @@ const AboutSection = () => {
           "Java 21",
           "Spring 6",
           "PostgreSQL",
+          "Php/Symfony",
+          "MySQL",
           "MongoDB",
           "Redis"
       ],
     },
-    {
+    /* {
       icon: Cloud,
       title: "Cloud & DevOps",
       description:
@@ -61,7 +63,7 @@ const AboutSection = () => {
         "GitHub Actions",
         "Terraform",
       ],
-    },
+    }, */
     /* {
       icon: Smartphone,
       title: "Mobile Development",
@@ -120,7 +122,9 @@ const AboutSection = () => {
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               I believe in writing clean, maintainable code and staying
-              up-to-date with the latest technologies. My approach combines
+              up-to-date with the latest technologies. As a recent university
+              graduate with a master's degree, I bring fresh perspectives and
+              cutting-edge knowledge to software development. My approach combines
               technical excellence with user-centered design to create
               applications that not only work flawlessly but also provide
               exceptional user experiences.

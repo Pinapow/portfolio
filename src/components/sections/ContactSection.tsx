@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import emailjs from '@emailjs/browser';
 import {
   Mail,
   Phone,
@@ -20,6 +21,7 @@ import {
 const ContactSection = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -49,18 +51,22 @@ const ContactSection = () => {
     {
       icon: Clock,
       label: "Availability",
-      value: "Mon - Fri, 9AM - 6PM PST",
+      value: "Mon - Fri, 9AM - 6PM UTC+2",
       href: null,
     },
   ];
 
   const socialLinks = [
     {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://linkedin.com/in/phuong-le77100",
+        icon: Linkedin,
+        label: "LinkedIn",
+        href: "https://linkedin.com/in/phuong-le77100",
     },
-    { icon: Github, label: "GitHub", href: "https://github.com/pinapow" },
+    {
+        icon: Github,
+        label: "GitHub",
+        href: "https://github.com/Pinapow"
+    },
   ];
 
   const handleInputChange = (
@@ -74,9 +80,27 @@ const ContactSection = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // EmailJS configuration
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS configuration is missing");
+      }
+
+      if (!formRef.current) {
+        throw new Error("Form reference is not available");
+      }
+
+      // Send email using EmailJS
+      await emailjs.sendForm(
+        serviceId,
+        templateId,
+        formRef.current,
+        publicKey
+      );
 
       toast({
         title: "Message sent successfully!",
@@ -86,7 +110,9 @@ const ContactSection = () => {
       });
 
       setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch {
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      
       toast({
         title: "Failed to send message",
         description: "Please try again later or contact me directly via email.",
@@ -107,9 +133,9 @@ const ContactSection = () => {
             Get In <span className="gradient-text">Touch</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            &quot;Ready to bring your ideas to life? Let&apos;s discuss your
+            Ready to bring your ideas to life? Let's discuss your
             project and explore how we can work together to create something
-            amazing.&quot;
+            amazing.
           </p>
         </div>
 
@@ -118,14 +144,14 @@ const ContactSection = () => {
           <div className="animate-slide-in">
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-4">
-                Let&apos;s Connect
+                Let's Connect
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                &quot;I&apos;m always interested in new opportunities,
-                collaborations, and challenging projects. Whether you&apos;re
+                I'm always interested in new opportunities,
+                collaborations, and challenging projects. Whether you're
                 looking for a technical consultant, full-stack developer, or
                 just want to chat about technology, feel free to reach
-                out.&quot;
+                out.
               </p>
             </div>
 
@@ -208,7 +234,7 @@ const ContactSection = () => {
                 <CardTitle>Send Me a Message</CardTitle>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
