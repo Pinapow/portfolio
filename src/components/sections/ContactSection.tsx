@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,22 +14,25 @@ import {
   Send,
   Linkedin,
   Github,
-  Twitter,
   CheckCircle,
 } from "lucide-react";
+import { ContactInfo, SocialLink, FormData } from "@/types";
 
-const ContactSection = () => {
+// Constants
+const INITIAL_FORM_DATA: FormData = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+};
+
+const ContactSection: React.FC = () => {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
 
-  const contactInfo = [
+  const contactInfo: ContactInfo[] = [
     {
       icon: Mail,
       label: "Email",
@@ -56,28 +59,49 @@ const ContactSection = () => {
     },
   ];
 
-  const socialLinks = [
+  const socialLinks: SocialLink[] = [
     {
-        icon: Linkedin,
-        label: "LinkedIn",
-        href: "https://linkedin.com/in/phuong-le77100",
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://linkedin.com/in/phuong-le77100",
     },
     {
-        icon: Github,
-        label: "GitHub",
-        href: "https://github.com/Pinapow"
+      icon: Github,
+      label: "GitHub",
+      href: "https://github.com/Pinapow"
     },
   ];
 
-  const handleInputChange = (
+  // Handler functions
+  const handleInputChange = useCallback((
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  ): void => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  }, []);
+
+  const validateForm = (): boolean => {
+    const { name, email, subject, message } = formData;
+    return !!(name.trim() && email.trim() && subject.trim() && message.trim());
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const resetForm = (): void => {
+    setFormData(INITIAL_FORM_DATA);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      toast({
+        title: "Validation Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+        duration: 3000,
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -95,21 +119,24 @@ const ContactSection = () => {
       }
 
       // Send email using EmailJS
-      await emailjs.sendForm(
+      const result = await emailjs.sendForm(
         serviceId,
         templateId,
         formRef.current,
         publicKey
       );
 
-      toast({
-        title: "Message sent successfully!",
-        description:
-          "Thank you for reaching out. I'll get back to you within 24 hours.",
-        duration: 5000,
-      });
-
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      if (result.status === 200) {
+        toast({
+          title: "Message sent successfully!",
+          description:
+            "Thank you for reaching out. I'll get back to you within 24 hours.",
+          duration: 5000,
+        });
+        resetForm();
+      } else {
+        throw new Error(`EmailJS returned status: ${result.status}`);
+      }
     } catch (error) {
       console.error("Failed to send email:", error);
       
@@ -133,7 +160,7 @@ const ContactSection = () => {
             Get In <span className="gradient-text">Touch</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Ready to bring your ideas to life? Let's discuss your
+            Ready to bring your ideas to life? Let&apos;s discuss your
             project and explore how we can work together to create something
             amazing.
           </p>
@@ -144,11 +171,11 @@ const ContactSection = () => {
           <div className="animate-slide-in">
             <div className="mb-8">
               <h3 className="text-2xl font-semibold mb-4">
-                Let's Connect
+                Let&apos;s Connect
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                I'm always interested in new opportunities,
-                collaborations, and challenging projects. Whether you're
+                I&apos;m always interested in new opportunities,
+                collaborations, and challenging projects. Whether you&apos;re
                 looking for a technical consultant, full-stack developer, or
                 just want to chat about technology, feel free to reach
                 out.

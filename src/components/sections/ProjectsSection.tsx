@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,26 +10,43 @@ import {
 } from "@/components/ui/tooltip";
 import { ExternalLink, Github, Filter } from "lucide-react";
 import Image from "next/image";
+import { Project } from "@/types";
 
-const TruncatedDescription = ({ description, className = "", maxLines = 3 }) => {
+interface TruncatedDescriptionProps {
+  description: string;
+  className?: string;
+  maxLines?: number;
+}
+
+const TruncatedDescription: React.FC<TruncatedDescriptionProps> = ({ 
+  description, 
+  className = "", 
+  maxLines = 3 
+}) => {
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const textRef = useRef(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const element = textRef.current;
-    if (element) {
-      const lineHeight = parseInt(window.getComputedStyle(element).lineHeight);
-      const maxHeight = lineHeight * maxLines;
-      setIsOverflowing(element.scrollHeight > maxHeight);
-    }
+    const checkOverflow = () => {
+      const element = textRef.current;
+      if (element) {
+        const computedStyle = window.getComputedStyle(element);
+        const lineHeight = parseInt(computedStyle.lineHeight);
+        const maxHeight = lineHeight * maxLines;
+        setIsOverflowing(element.scrollHeight > maxHeight);
+      }
+    };
+
+    checkOverflow();
+    window.addEventListener('resize', checkOverflow);
+    return () => window.removeEventListener('resize', checkOverflow);
   }, [description, maxLines]);
+
+  const baseClasses = `${className} line-clamp-${maxLines}`;
 
   if (!isOverflowing) {
     return (
-      <p
-        ref={textRef}
-        className={`${className} line-clamp-${maxLines}`}
-      >
+      <p ref={textRef} className={baseClasses}>
         {description}
       </p>
     );
@@ -40,22 +57,26 @@ const TruncatedDescription = ({ description, className = "", maxLines = 3 }) => 
       <TooltipTrigger asChild>
         <p
           ref={textRef}
-          className={`${className} line-clamp-${maxLines} cursor-help`}
+          className={`${baseClasses} cursor-help hover:text-foreground transition-colors`}
         >
           {description}
         </p>
       </TooltipTrigger>
       <TooltipContent className="max-w-xs p-3">
-        <p className="text-sm">{description}</p>
+        <p className="text-sm leading-relaxed">{description}</p>
       </TooltipContent>
     </Tooltip>
   );
 };
 
-const ProjectsSection = () => {
-  const [selectedFilter, setSelectedFilter] = useState("All");
+// Constants
+const CATEGORIES = ["All", "Full-Stack", "Frontend", "Backend", "Mobile"] as const;
+type FilterType = typeof CATEGORIES[number];
 
-  const projects = [
+const ProjectsSection: React.FC = () => {
+  const [selectedFilter, setSelectedFilter] = useState<FilterType>("All");
+
+  const projects: Project[] = [
     {
       id: 1,
       title: "BooqIn",
@@ -142,14 +163,23 @@ const ProjectsSection = () => {
     },
   ];
 
-  const categories = ["All", "Full-Stack", "Frontend", "Backend", "Mobile"];
-
-  const filteredProjects =
-    selectedFilter === "All"
+  // Helper functions
+  const getFilteredProjects = (): Project[] => {
+    return selectedFilter === "All"
       ? projects
       : projects.filter(project => project.category === selectedFilter);
+  };
 
-  const featuredProjects = projects.filter(project => project.featured);
+  const getFeaturedProjects = (): Project[] => {
+    return projects.filter(project => project.featured);
+  };
+
+  const handleFilterChange = (category: FilterType): void => {
+    setSelectedFilter(category);
+  };
+
+  const filteredProjects = getFilteredProjects();
+  const featuredProjects = getFeaturedProjects();
 
   return (
     <TooltipProvider>
@@ -277,15 +307,15 @@ const ProjectsSection = () => {
             <div className="flex items-center gap-2">
               <Filter className="h-4 w-4 text-muted-foreground" />
               <div className="flex gap-2">
-                {categories.map(category => (
+                {CATEGORIES.map(category => (
                   <Button
                     key={category}
                     variant={
                       selectedFilter === category ? "default" : "outline"
                     }
                     size="sm"
-                    onClick={() => setSelectedFilter(category)}
-                    className="text-xs"
+                    onClick={() => handleFilterChange(category)}
+                    className="text-xs transition-all duration-200"
                   >
                     {category}
                   </Button>

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowUp, Heart } from "lucide-react";
+import { ArrowUp } from "lucide-react";
 
 const Footer = () => {
   const scrollToTop = () => {

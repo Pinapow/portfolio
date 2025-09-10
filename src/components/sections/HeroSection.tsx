@@ -1,39 +1,50 @@
+import React, { useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Download, Mail } from "lucide-react";
 import Image from "next/image";
 import heroWorkspace from "@/assets/hero-workspace.jpg";
 import profilePhoto from "@/assets/profile.jpeg";
 
-const HeroSection = () => {
-  /* const metrics = [
+const HeroSection: React.FC = () => {
+  /* 
+  interface MetricData {
+    value: string;
+    label: string;
+  }
+  
+  const metrics: MetricData[] = [
     { value: "5+", label: "Years Experience" },
     { value: "50+", label: "Projects Completed" },
     { value: "15+", label: "Happy Clients" },
     { value: "99%", label: "Uptime Achieved" },
-  ]; */
+  ]; 
+  */
 
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById("about");
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: "smooth" });
+  // Navigation functions
+  const scrollToSection = useCallback((sectionId: string): void => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
     }
-  };
+  }, []);
 
-  const scrollToContact = () => {
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const scrollToAbout = useCallback((): void => {
+    scrollToSection("about");
+  }, [scrollToSection]);
 
-  const downloadCV = () => {
+  const scrollToContact = useCallback((): void => {
+    scrollToSection("contact");
+  }, [scrollToSection]);
+
+  const downloadCV = useCallback((): void => {
     const link = document.createElement("a");
     link.href = "/CV_ats.pdf";
     link.download = "Phuong_LE_CV.pdf";
+    link.style.display = "none";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
+  }, []);
 
   return (
     <section
@@ -79,7 +90,7 @@ const HeroSection = () => {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            Graduate with a Master's degree in Software and Data Engineering, seeking a position as a Software Developer
+            Graduate with a Master&apos;s degree in Software and Data Engineering, seeking a position as a Software Developer
             or Full Stack Developer on a permanent contract starting in January 2026.
             Passionate about application development and technical challenges, with solid development experience gained
             through a work-study programme.

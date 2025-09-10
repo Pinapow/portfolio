@@ -1,22 +1,22 @@
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
   Code2,
   Database,
-  Cloud,
-  Smartphone,
   Calendar,
   MapPin,
   GraduationCap,
 } from "lucide-react";
+import { Skill, ExpertiseArea, TimelineItem } from "@/types";
 
-const AboutSection = () => {
-  const skills = [
+const AboutSection: React.FC = () => {
+  const skills: Skill[] = [
     { name: "Java 21/Spring 6", level: 95, category: "Languages" },
     { name: "Php/Symfony", level: 95, category: "Languages" },
     { name: "Python", level: 90, category: "Languages" },
     { name: "C/C++", level: 88, category: "Languages" },
-    { name: "React/TypeScript", level: 85, category: "Languages" },
+    { name: "React/TypeScript", level: 85, category: "Frontend" },
     { name: "PostgreSQL/MySQL", level: 75, category: "Database" },
     { name: "MongoDB", level: 70, category: "Database" },
     { name: "AWS", level: 75, category: "DevOps" },
@@ -24,7 +24,7 @@ const AboutSection = () => {
     { name: "Git", level: 85, category: "DevOps" },
   ];
 
-  const expertiseAreas = [
+  const expertiseAreas: ExpertiseArea[] = [
     {
       icon: Code2,
       title: "Frontend Development",
@@ -42,13 +42,13 @@ const AboutSection = () => {
       description:
         "Scalable server-side solutions with microservices, APIs, and database optimization.",
       technologies: [
-          "Java 21",
-          "Spring 6",
-          "PostgreSQL",
-          "Php/Symfony",
-          "MySQL",
-          "MongoDB",
-          "Redis"
+        "Java 21",
+        "Spring 6",
+        "PostgreSQL",
+        "Php/Symfony",
+        "MySQL",
+        "MongoDB",
+        "Redis"
       ],
     },
     /* {
@@ -73,28 +73,25 @@ const AboutSection = () => {
     }, */
   ];
 
-  const timeline = [
+  const timeline: TimelineItem[] = [
     {
       year: "09/2024 – 09/2025",
       title: "Work-study Full-stack Developer",
       company: "Cash Flow Positif",
       description:
-      `— Architecture migration: Migration from Symfony/Twig to API Platform/React
-      — Full-stack development: Development of a REST API, front-end and business automations with third-party services
-      — DevOps and optimisation: Python scripts for database migration, AWS/Docker deployment
-      `,
+        `— Architecture migration: Migration from Symfony/Twig to API Platform/React
+— Full-stack development: Development of a REST API, front-end and business automations with third-party services
+— DevOps and optimisation: Python scripts for database migration, AWS/Docker deployment`,
     },
     {
       year: "05/2024 – 09/2024",
       title: "Research Intern",
       company: "Laboratoire Institut Gustave Eiffel",
       description:
-      `— Multi-agent algorithms: Development of trajectory planning (Held-Karp, Q-Learning)
-      — Robotic simulation: ROS2/Gazebo testing
-      — Embedded programming: Python/C development, inter-drone P2P communication and performance data analysis
-      — Computer vision: Object detection and recognition using OpenCV and Nimbus
-      `,
-
+        `— Multi-agent algorithms: Development of trajectory planning (Held-Karp, Q-Learning)
+— Robotic simulation: ROS2/Gazebo testing
+— Embedded programming: Python/C development, inter-drone P2P communication and performance data analysis
+— Computer vision: Object detection and recognition using OpenCV and Nimbus`,
     },
   ];
 
@@ -123,7 +120,7 @@ const AboutSection = () => {
             <p className="text-muted-foreground mb-6 leading-relaxed">
               I believe in writing clean, maintainable code and staying
               up-to-date with the latest technologies. As a recent university
-              graduate with a master's degree, I bring fresh perspectives and
+              graduate with a master&apos;s degree, I bring fresh perspectives and
               cutting-edge knowledge to software development. My approach combines
               technical excellence with user-centered design to create
               applications that not only work flawlessly but also provide
