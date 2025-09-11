@@ -185,7 +185,7 @@ const ProjectsSection: React.FC = () => {
       description:
         `BooqIn is a platform for managing and lending books between users.
          The site allows users to create collections, share their books and borrow those of other users.`,
-      image: "/available_soon.jpg",
+      image: "/projects/available_soon.jpg",
       technologies: ["React", "Java 21", "Spring 6", "Stripe", "Google Books API", "Thymeleaf", "Docker"],
       category: "Full-Stack",
       liveUrl: undefined,
@@ -202,7 +202,7 @@ const ProjectsSection: React.FC = () => {
          while preserving the anonymity of IP addresses. This protocol aims to offer two download modes: open mode,
          where clients connect directly to each other, and hidden mode, where a proxy system is used to mask IP addresses.
         `,
-      image: "/available_soon.jpg",
+      image: "/projects/available_soon.jpg",
       technologies: ["Java 21"],
       category: "Backend",
       liveUrl: undefined,
@@ -219,7 +219,7 @@ const ProjectsSection: React.FC = () => {
         The site allows users to create collections, share their books and borrow those of other users.
         Adapt to android mobile user.
         `,
-      image: "/available_soon.jpg",
+      image: "/projects/android.png",
       technologies: ["Kotlin"],
       category: "Mobile",
       liveUrl: undefined,
@@ -237,7 +237,7 @@ const ProjectsSection: React.FC = () => {
         the TPC programming language.
         `,
       image:
-        "/available_soon.jpg",
+        "/projects/available_soon.jpg",
       technologies: ["C", "Yacc", "Lex"],
       category: "Backend",
       liveUrl: undefined,
@@ -255,7 +255,7 @@ const ProjectsSection: React.FC = () => {
         a better understanding of each contributor's contributions.
         `,
       image:
-        "/available_soon.jpg",
+        "/projects/available_soon.jpg",
       technologies: ["Java 21", "Spring 6", "Vue.js", "BulmaCSS", "Jgit", "HyperSQL"],
       category: "Full-Stack",
       liveUrl: undefined,

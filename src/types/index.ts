@@ -38,6 +38,8 @@ export interface TimelineItem {
   title: string;
   company: string;
   description: string;
+  companyLogo?: string;
+  companyWebsite?: string;
 }
 
 export interface ContactInfo {
