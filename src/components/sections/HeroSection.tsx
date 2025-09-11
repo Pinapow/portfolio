@@ -49,7 +49,7 @@ const HeroSection: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">

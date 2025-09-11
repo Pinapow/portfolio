@@ -8,20 +8,40 @@ import {
   MapPin,
   GraduationCap,
 } from "lucide-react";
+import {
+  SiSpring,
+  SiPhp,
+  SiSymfony,
+  SiPython,
+  SiC,
+  SiReact,
+  SiTypescript,
+  SiPostgresql,
+  SiMysql,
+  SiMongodb,
+  SiAmazon,
+  SiDocker,
+  SiGit,
+} from "react-icons/si";
+import { DiJava } from "react-icons/di";
 import { Skill, ExpertiseArea, TimelineItem } from "@/types";
 
 const AboutSection: React.FC = () => {
   const skills: Skill[] = [
-    { name: "Java 21/Spring 6", level: 95, category: "Languages" },
-    { name: "Php/Symfony", level: 95, category: "Languages" },
-    { name: "Python", level: 90, category: "Languages" },
-    { name: "C/C++", level: 88, category: "Languages" },
-    { name: "React/TypeScript", level: 85, category: "Frontend" },
-    { name: "PostgreSQL/MySQL", level: 75, category: "Database" },
-    { name: "MongoDB", level: 70, category: "Database" },
-    { name: "AWS", level: 75, category: "DevOps" },
-    { name: "Docker", level: 70, category: "DevOps" },
-    { name: "Git", level: 85, category: "DevOps" },
+    { name: "Java", icon: DiJava, category: "Languages", color: "#ED8B00" },
+    { name: "Spring", icon: SiSpring, category: "Backend", color: "#6DB33F" },
+    { name: "PHP", icon: SiPhp, category: "Languages", color: "#777BB4" },
+    { name: "Symfony", icon: SiSymfony, category: "Backend", color: "#000000" },
+    { name: "Python", icon: SiPython, category: "Languages", color: "#3776AB" },
+    { name: "C/C++", icon: SiC, category: "Languages", color: "#A8B9CC" },
+    { name: "React", icon: SiReact, category: "Frontend", color: "#61DAFB" },
+    { name: "TypeScript", icon: SiTypescript, category: "Frontend", color: "#007ACC" },
+    { name: "PostgreSQL", icon: SiPostgresql, category: "Database", color: "#4169E1" },
+    { name: "MySQL", icon: SiMysql, category: "Database", color: "#4479A1" },
+    { name: "MongoDB", icon: SiMongodb, category: "Database", color: "#47A248" },
+    { name: "AWS", icon: SiAmazon, category: "DevOps", color: "#FF9900" },
+    { name: "Docker", icon: SiDocker, category: "DevOps", color: "#2496ED" },
+    { name: "Git", icon: SiGit, category: "DevOps", color: "#F05032" },
   ];
 
   const expertiseAreas: ExpertiseArea[] = [
@@ -130,7 +150,7 @@ const AboutSection: React.FC = () => {
             <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4" />
-                <span>Meaux, Seine-et-Marne</span>
+                <span>Paris, France</span>
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
@@ -147,24 +167,25 @@ const AboutSection: React.FC = () => {
             <h3 className="text-2xl font-semibold mb-6">
               Skills & Technologies
             </h3>
-            <div className="space-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {skills.map((skill, index) => (
-                <div key={skill.name} className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium">{skill.name}</span>
-                    <Badge variant="secondary" className="text-xs">
-                      {skill.category}
-                    </Badge>
-                  </div>
-                  <div className="skill-bar h-2 rounded-full overflow-hidden">
-                    <div
-                      className="skill-bar-fill h-full rounded-full transition-all duration-1000 ease-out"
-                      style={{
-                        width: `${skill.level}%`,
-                        animationDelay: `${index * 0.1}s`,
-                      }}
+                <div
+                  key={skill.name}
+                  className="flex flex-col items-center p-4 rounded-lg bg-muted/50 hover:bg-muted/80 transition-all duration-300 animate-fade-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div className="w-12 h-12 mb-3 flex items-center justify-center">
+                    <skill.icon 
+                      className="w-8 h-8" 
+                      style={{ color: skill.color || 'currentColor' }}
                     />
                   </div>
+                  <span className="font-medium text-sm text-center mb-2">
+                    {skill.name}
+                  </span>
+                  <Badge variant="secondary" className="text-xs">
+                    {skill.category}
+                  </Badge>
                 </div>
               ))}
             </div>
