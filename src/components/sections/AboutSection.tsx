@@ -174,11 +174,11 @@ const AboutSection: React.FC = () => {
                   className="flex flex-col items-center p-4 rounded-lg bg-muted/50 hover:bg-muted/80 transition-all duration-300 animate-fade-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="w-12 h-12 mb-3 flex items-center justify-center">
-                    <skill.icon 
-                      className="w-8 h-8" 
-                      style={{ color: skill.color || 'currentColor' }}
-                    />
+                  <div 
+                    className="w-12 h-12 mb-3 flex items-center justify-center"
+                    style={{ color: skill.color || 'currentColor' }}
+                  >
+                    <skill.icon className="w-8 h-8" />
                   </div>
                   <span className="font-medium text-sm text-center mb-2">
                     {skill.name}

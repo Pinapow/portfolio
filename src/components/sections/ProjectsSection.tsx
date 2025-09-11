@@ -117,7 +117,7 @@ const ProjectsSection: React.FC = () => {
         The site allows users to create collections, share their books and borrow those of other users.
         Adapt to android mobile user.
         `,
-      image: "/android.png",
+      image: "/available_soon.jpg",
       technologies: ["Kotlin"],
       category: "Mobile",
       liveUrl: undefined,
