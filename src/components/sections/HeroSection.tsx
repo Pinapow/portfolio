@@ -131,7 +131,7 @@ const HeroSection: React.FC = () => {
           <div className="animate-fade-up flex flex-col items-start text-left order-2 lg:order-1">
             <h1 className="text-4xl md:text-6xl lg:text-hero font-bold mb-6 leading-tight">
               <span className="gradient-text">{displayedText}</span>
-              <span className="animate-pulse">|</span>
+              <span className="animate-cursor-blink">|</span>
             </h1>
 
             <h2 className="text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-8 font-light flex items-center gap-2">
