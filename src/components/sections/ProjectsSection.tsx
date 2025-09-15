@@ -274,8 +274,10 @@ const ProjectsSection: React.FC = () => {
 
   return (
     <TooltipProvider>
-      <section id="projects" className="section-padding">
-        <div className="container-custom">
+      <section id="projects" className="section-padding relative">
+        {/* Projects-specific gradient background */}
+        <div className="absolute inset-0 gradient-bg-projects"></div>
+        <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -290,7 +292,8 @@ const ProjectsSection: React.FC = () => {
 
         {/* Featured Projects */}
         <div className="mb-20 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-3xl -m-8"></div>
+          <div className="absolute inset-0 gradient-bg-mesh opacity-40 rounded-3xl -m-8 animate-gradient-pulse"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-primary/12 to-primary/8 rounded-3xl -m-8"></div>
           <div className="relative z-10 p-8">
             <div className="text-center mb-12">
               <div className="inline-flex items-center gap-2 mb-4">

@@ -9,8 +9,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container-custom py-12">
+    <footer className="bg-card border-t border-border/50 relative">
+      {/* Gradient background */}
+      <div className="absolute inset-0 gradient-overlay-subtle opacity-40"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
+      <div className="container-custom py-12 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-6">
           {/* Back to Top Button */}
           <Button

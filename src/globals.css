@@ -1,69 +1,69 @@
 @import "tailwindcss";
 
 :root {
-  /* Light mode - DPM.lol inspired */
-  --background: 225 15% 6%;
-  --foreground: 0 0% 95%;
-  --card: 225 15% 8%;
-  --card-foreground: 0 0% 95%;
-  --popover: 225 15% 6%;
-  --popover-foreground: 0 0% 95%;
-  --primary: 250 45% 75%;
-  --primary-foreground: 225 15% 6%;
-  --secondary: 225 15% 12%;
-  --secondary-foreground: 0 0% 95%;
-  --muted: 225 15% 12%;
-  --muted-foreground: 0 0% 60%;
-  --accent: 250 45% 75%;
-  --accent-foreground: 225 15% 6%;
+  /* Professional Dark Mode - Enterprise Grade */
+  --background: 220 13% 9%;
+  --foreground: 220 9% 95%;
+  --card: 220 13% 11%;
+  --card-foreground: 220 9% 95%;
+  --popover: 220 13% 9%;
+  --popover-foreground: 220 9% 95%;
+  --primary: 217 91% 60%;
+  --primary-foreground: 220 13% 9%;
+  --secondary: 220 13% 15%;
+  --secondary-foreground: 220 9% 95%;
+  --muted: 220 13% 15%;
+  --muted-foreground: 220 9% 65%;
+  --accent: 217 91% 60%;
+  --accent-foreground: 220 13% 9%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --border: 225 15% 15%;
-  --input: 225 15% 12%;
-  --ring: 250 45% 75%;
-  --radius: 0.75rem;
+  --border: 220 13% 18%;
+  --input: 220 13% 15%;
+  --ring: 217 91% 60%;
+  --radius: 0.5rem;
 
   /* Professional Portfolio Colors */
-  --hero-gradient-start: 250 45% 75%;
-  --hero-gradient-end: 225 35% 45%;
-  --skill-bar-bg: 225 15% 12%;
-  --skill-bar-fill: 250 45% 75%;
-  --card-hover: 225 15% 10%;
-  --text-gradient-start: 250 45% 75%;
-  --text-gradient-end: 225 35% 55%;
+  --hero-gradient-start: 217 91% 60%;
+  --hero-gradient-end: 220 50% 35%;
+  --skill-bar-bg: 220 13% 15%;
+  --skill-bar-fill: 217 91% 60%;
+  --card-hover: 220 13% 13%;
+  --text-gradient-start: 217 91% 60%;
+  --text-gradient-end: 220 50% 40%;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Dark mode - DPM.lol inspired */
-    --background: 225 15% 4%;
-    --foreground: 0 0% 98%;
-    --card: 225 15% 6%;
-    --card-foreground: 0 0% 98%;
-    --popover: 225 15% 4%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 250 45% 75%;
-    --primary-foreground: 225 15% 4%;
-    --secondary: 225 15% 8%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 225 15% 10%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 250 45% 75%;
-    --accent-foreground: 225 15% 4%;
+    /* Professional Dark Mode - Refined */
+    --background: 220 13% 9%;
+    --foreground: 220 9% 95%;
+    --card: 220 13% 11%;
+    --card-foreground: 220 9% 95%;
+    --popover: 220 13% 9%;
+    --popover-foreground: 220 9% 95%;
+    --primary: 217 91% 60%;
+    --primary-foreground: 220 13% 9%;
+    --secondary: 220 13% 15%;
+    --secondary-foreground: 220 9% 95%;
+    --muted: 220 13% 15%;
+    --muted-foreground: 220 9% 65%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 220 13% 9%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 225 15% 12%;
-    --input: 225 15% 10%;
-    --ring: 250 45% 75%;
+    --border: 220 13% 18%;
+    --input: 220 13% 15%;
+    --ring: 217 91% 60%;
 
     /* Professional Portfolio Colors - Dark Mode */
-    --hero-gradient-start: 250 45% 75%;
-    --hero-gradient-end: 225 35% 35%;
-    --skill-bar-bg: 225 15% 10%;
-    --skill-bar-fill: 250 45% 75%;
-    --card-hover: 225 15% 8%;
-    --text-gradient-start: 250 45% 75%;
-    --text-gradient-end: 225 35% 45%;
+    --hero-gradient-start: 217 91% 60%;
+    --hero-gradient-end: 220 50% 35%;
+    --skill-bar-bg: 220 13% 15%;
+    --skill-bar-fill: 217 91% 60%;
+    --card-hover: 220 13% 13%;
+    --text-gradient-start: 217 91% 60%;
+    --text-gradient-end: 220 50% 40%;
   }
 }
 
@@ -142,7 +142,7 @@ body {
 /* Hero gradient text */
 .gradient-text {
   background: linear-gradient(
-    135deg,
+    120deg,
     var(--color-text-gradient-start),
     var(--color-text-gradient-end)
   );
@@ -154,11 +154,12 @@ body {
 /* Hero gradient background */
 .hero-gradient {
   background: linear-gradient(
-    135deg,
+    120deg,
     var(--color-hero-gradient-start) 0%,
+    transparent 50%,
     var(--color-hero-gradient-end) 100%
   );
-  opacity: 0.95;
+  opacity: 0.3;
 }
 
 /* Card hover animation */
@@ -245,6 +246,59 @@ body {
   }
 }
 
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes particles {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) scale(0.1);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(0.1);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes gradient-pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes mesh-gradient {
+  0% {
+    transform: translateX(-50%) translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) rotate(360deg);
+  }
+}
+
 /* Animation utilities */
 .animate-fade-up {
   animation: fadeUp 0.6s ease-out forwards;
@@ -268,6 +322,89 @@ body {
 
 .animate-marquee-vertical {
   animation: marquee-vertical var(--duration) linear infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-particles {
+  animation: particles var(--duration, 10s) linear infinite;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.animate-gradient-pulse {
+  animation: gradient-pulse 4s ease-in-out infinite;
+}
+
+.animate-mesh-gradient {
+  animation: mesh-gradient 20s linear infinite;
+}
+
+/* Modern Gradient Backgrounds */
+.gradient-bg-primary {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--primary) / 0.8) 25%,
+    hsl(var(--accent)) 50%,
+    hsl(var(--primary) / 0.6) 75%,
+    hsl(var(--primary)) 100%
+  );
+}
+
+.gradient-bg-mesh {
+  background: 
+    radial-gradient(circle at 20% 50%, hsl(var(--primary) / 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, hsl(var(--accent) / 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, hsl(var(--primary) / 0.2) 0%, transparent 50%),
+    linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background) / 0.9) 100%);
+}
+
+.gradient-bg-hero {
+  background: 
+    radial-gradient(ellipse at top left, hsl(var(--primary) / 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at top right, hsl(var(--accent) / 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom, hsl(var(--primary) / 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background) / 0.95) 100%);
+}
+
+.gradient-overlay-subtle {
+  background: linear-gradient(
+    120deg,
+    hsl(var(--primary) / 0.05) 0%,
+    transparent 30%,
+    transparent 70%,
+    hsl(var(--accent) / 0.05) 100%
+  );
+}
+
+.gradient-bg-about {
+  background: 
+    radial-gradient(ellipse at top, hsl(var(--primary) / 0.08) 0%, transparent 60%),
+    linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--muted) / 0.3) 100%);
+}
+
+.gradient-bg-projects {
+  background: 
+    radial-gradient(circle at 30% 20%, hsl(var(--primary) / 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, hsl(var(--accent) / 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, transparent 0%, hsl(var(--primary) / 0.02) 100%);
+}
+
+.gradient-bg-contact {
+  background: 
+    radial-gradient(ellipse at bottom left, hsl(var(--primary) / 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse at top right, hsl(var(--accent) / 0.08) 0%, transparent 60%),
+    linear-gradient(45deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
+}
+
+.gradient-border {
+  border-image: linear-gradient(120deg, hsl(var(--primary) / 0.3), transparent, hsl(var(--accent) / 0.3)) 1;
 }
 
 /* Section padding */

@@ -207,8 +207,10 @@ const AboutSection: React.FC = () => {
   ];
 
   return (
-    <section id="about" className="section-padding bg-muted/30">
-      <div className="container-custom">
+    <section id="about" className="section-padding bg-muted/30 relative">
+      {/* About-specific gradient background */}
+      <div className="absolute inset-0 gradient-bg-about"></div>
+      <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -226,7 +228,10 @@ const AboutSection: React.FC = () => {
           <div className="animate-slide-in">
             <h3 className="text-2xl font-semibold mb-6">My Story</h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-
+              Graduate with a Master&apos;s degree in Software and Data Engineering, seeking a position as a Software Developer
+              or Full Stack Developer on a permanent contract starting in January 2026.
+              Passionate about application development and technical challenges, with solid development experience gained
+              through a work-study programme.
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               I believe in writing clean, maintainable code and staying

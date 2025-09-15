@@ -152,8 +152,10 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-muted/30">
-      <div className="container-custom">
+    <section id="contact" className="section-padding bg-muted/30 relative">
+      {/* Contact-specific gradient background */}
+      <div className="absolute inset-0 gradient-bg-contact"></div>
+      <div className="container-custom relative z-10">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">

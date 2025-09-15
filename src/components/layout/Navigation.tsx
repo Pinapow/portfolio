@@ -54,7 +54,7 @@ const Navigation = () => {
     <>
       {/* Dock Navigation at Bottom */}
       <div className="fixed bottom-8 left-0 right-0 z-50 hidden md:block px-4 py-2">
-        <Dock className="bg-background/80 border-border/50" iconSize={45} iconMagnification={65}>
+        <Dock className="bg-background/60 backdrop-blur-lg border-border/30 gradient-overlay-subtle" iconSize={45} iconMagnification={65}>
           {/* Logo/Home Button */}
           <DockIcon
             onClick={() => scrollToSection("home")}
@@ -122,7 +122,7 @@ const Navigation = () => {
       <div className="fixed top-6 right-6 z-50 md:hidden">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-12 h-12 bg-background/80 backdrop-blur-md border border-border rounded-full flex items-center justify-center text-foreground hover:text-primary transition-all duration-300 hover:scale-110 shadow-lg"
+          className="w-12 h-12 bg-background/60 backdrop-blur-md border border-border/50 rounded-full flex items-center justify-center text-foreground hover:text-primary transition-all duration-300 hover:scale-110 shadow-lg gradient-overlay-subtle"
           aria-label="Toggle menu"
         >
           {isOpen ? (
@@ -136,9 +136,9 @@ const Navigation = () => {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm gradient-bg-mesh opacity-90" onClick={() => setIsOpen(false)} />
           <div className="relative flex flex-col items-center justify-center min-h-screen p-8">
-            <div className="bg-card/95 backdrop-blur-md border border-border rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+            <div className="bg-card/95 backdrop-blur-md border border-border/50 rounded-2xl p-6 w-full max-w-sm shadow-2xl gradient-overlay-subtle">
               <div className="text-center mb-6">
                 <button
                   onClick={() => scrollToSection("home")}
