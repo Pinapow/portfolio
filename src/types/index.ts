@@ -61,13 +61,3 @@ export interface FormData {
   subject: string;
   message: string;
 }
-
-export interface ComponentProps {
-  className?: string;
-  children?: React.ReactNode;
-}
-
-export interface AnimationProps {
-  delay?: number;
-  duration?: number;
-}

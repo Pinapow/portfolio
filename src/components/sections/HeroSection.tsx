@@ -2,16 +2,16 @@ import React, { useCallback, useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  ArrowDown, 
-  Download, 
-  Mail, 
-  Github, 
-  Linkedin, 
-  MapPin, 
-  Calendar, 
-  Code2, 
-  Database 
+import {
+  ArrowDown,
+  Download,
+  Mail,
+  Github,
+  Linkedin,
+  MapPin,
+  Calendar,
+  Code2,
+  Database,
 } from "lucide-react";
 import { SiReact, SiSpring, SiDocker } from "react-icons/si";
 import { DiJava } from "react-icons/di";
@@ -41,7 +41,11 @@ const HeroSection: React.FC = () => {
   // Data constants
   const socialLinks = [
     { icon: Github, href: "https://github.com/Pinapow", label: "GitHub" },
-    { icon: Linkedin, href: "https://www.linkedin.com/in/phuong-le-78393b22a/", label: "LinkedIn" },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/in/phuong-le77100/",
+      label: "LinkedIn",
+    },
   ] as const;
 
   const techIcons = [
@@ -67,16 +71,6 @@ const HeroSection: React.FC = () => {
     scrollToSection("contact");
   }, [scrollToSection]);
 
-  const downloadCV = useCallback((): void => {
-    const link = document.createElement("a");
-    link.href = "/CV_ats.pdf";
-    link.download = "Phuong_LE_CV.pdf";
-    link.style.display = "none";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }, []);
-
   return (
     <section
       id="home"
@@ -91,22 +85,22 @@ const HeroSection: React.FC = () => {
           className="object-cover opacity-10"
           priority
         />
-        
+
         {/* Animated Mesh Gradient */}
         <div className="absolute inset-0 gradient-bg-mesh animate-gradient-shift" />
-        
+
         {/* Dynamic Gradient Orbs */}
         {/* Dynamic gradient orbs */}
-        <div 
+        <div
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-primary/20 to-transparent rounded-full blur-3xl animate-pulse-slow"
           aria-hidden="true"
         />
-        <div 
-          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-accent/15 to-transparent rounded-full blur-3xl animate-pulse-slow" 
-          style={{ animationDelay: '2s' }}
+        <div
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-l from-accent/15 to-transparent rounded-full blur-3xl animate-pulse-slow"
+          style={{ animationDelay: "2s" }}
           aria-hidden="true"
         />
-        
+
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden">
           {PARTICLE_POSITIONS.map((left, i) => (
@@ -116,13 +110,12 @@ const HeroSection: React.FC = () => {
               style={{
                 left: `${left}%`,
                 animationDelay: `${i * 2}s`,
-                animationDuration: `${10 + i * 2}s`
+                animationDuration: `${10 + i * 2}s`,
               }}
             />
           ))}
         </div>
       </div>
-
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -141,8 +134,9 @@ const HeroSection: React.FC = () => {
             </h2>
 
             <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
-              Passionate full-stack developer crafting digital solutions that make a difference.
-              I combine technical expertise with creative problem-solving to deliver exceptional experiences.
+              Passionate full-stack developer crafting digital solutions that
+              make a difference. I combine technical expertise with creative
+              problem-solving to deliver exceptional experiences.
             </p>
 
             {/* Status Cards */}
@@ -156,13 +150,17 @@ const HeroSection: React.FC = () => {
               <Card className="bg-background/40 backdrop-blur-sm border-border/50 hover:bg-background/60 transition-all duration-300 hover:scale-105">
                 <CardContent className="p-3 flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-medium">Available Jan 2026</span>
+                  <span className="text-sm font-medium">
+                    Available as soon as possible
+                  </span>
                 </CardContent>
               </Card>
               <Card className="bg-background/40 backdrop-blur-sm border-green-500/30 hover:bg-background/60 transition-all duration-300 hover:scale-105">
                 <CardContent className="p-3 flex items-center gap-2">
                   <div className="h-3 w-3 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-sm font-medium">Open to opportunities</span>
+                  <span className="text-sm font-medium">
+                    Open to opportunities
+                  </span>
                 </CardContent>
               </Card>
             </div>
@@ -177,20 +175,21 @@ const HeroSection: React.FC = () => {
                 <Mail className="mr-2 h-5 w-5" />
                 Get In Touch
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-medium px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
-                onClick={downloadCV}
-              >
-                <Download className="mr-2 h-5 w-5" />
-                Download Resume
-              </Button>
+              <a href="/CV.pdf" download="Phuong_LE_CV.pdf">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground font-medium px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  <Download className="mr-2 h-5 w-5" />
+                  Download Resume
+                </Button>
+              </a>
             </div>
 
             {/* Social Links */}
             <div className="flex gap-4">
-              {socialLinks.map((social) => (
+              {socialLinks.map(social => (
                 <a
                   key={social.label}
                   href={social.href}
@@ -217,7 +216,7 @@ const HeroSection: React.FC = () => {
                 />
                 <div className="absolute inset-0 rounded-full bg-primary/10 animate-pulse-slow" />
               </div>
-              
+
               {/* Floating Tech Icons around profile */}
               {techIcons.map((tech, index) => {
                 const baseRadius = 220; // Distance from center of photo
@@ -225,31 +224,37 @@ const HeroSection: React.FC = () => {
                 const angle = tech.angle;
                 const x = radius * Math.cos((angle * Math.PI) / 180);
                 const y = radius * Math.sin((angle * Math.PI) / 180);
-                
+
                 return (
                   <div
                     key={tech.name}
                     className="absolute w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 flex items-center justify-center animate-float shadow-lg hover:scale-110 transition-all duration-300"
                     style={{
                       left: `calc(50% + ${x}px - 24px)`, // Center + offset - half width
-                      top: `calc(50% + ${y}px - 24px)`,   // Center + offset - half height
+                      top: `calc(50% + ${y}px - 24px)`, // Center + offset - half height
                       animationDelay: `${index * 0.3}s`,
-                      animationDuration: `${3 + index * 0.1}s`
+                      animationDuration: `${3 + index * 0.1}s`,
                     }}
                   >
-                    <tech.icon 
-                      className="w-6 h-6" 
+                    <tech.icon
+                      className="w-6 h-6"
                       style={{ color: tech.color }}
                       title={tech.name}
                     />
                   </div>
                 );
               })}
-              
+
               {/* Subtle decorative elements around photo */}
               <div className="absolute -top-3 -right-3 w-6 h-6 bg-primary/10 rounded-full animate-pulse"></div>
-              <div className="absolute -bottom-4 -left-4 w-4 h-4 bg-accent/15 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-              <div className="absolute top-1/4 -left-6 w-3 h-3 bg-primary/20 rounded-full animate-pulse" style={{ animationDelay: '2s' }}></div>
+              <div
+                className="absolute -bottom-4 -left-4 w-4 h-4 bg-accent/15 rounded-full animate-pulse"
+                style={{ animationDelay: "1s" }}
+              ></div>
+              <div
+                className="absolute top-1/4 -left-6 w-3 h-3 bg-primary/20 rounded-full animate-pulse"
+                style={{ animationDelay: "2s" }}
+              ></div>
             </div>
           </div>
         </div>
