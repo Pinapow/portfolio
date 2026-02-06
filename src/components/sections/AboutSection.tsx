@@ -30,7 +30,13 @@ import {
 import { DiJava } from "react-icons/di";
 import { Skill, ExpertiseArea, TimelineItem } from "@/types";
 
-const TimelineCard = ({ item, index }: { item: TimelineItem; index: number }) => {
+const TimelineCard = ({
+  item,
+  index,
+}: {
+  item: TimelineItem;
+  index: number;
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -41,7 +47,6 @@ const TimelineCard = ({ item, index }: { item: TimelineItem; index: number }) =>
     >
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
-
           {/* Company Logo */}
           <div className="flex-shrink-0 w-12 h-12 relative">
             {item.companyLogo ? (
@@ -66,7 +71,9 @@ const TimelineCard = ({ item, index }: { item: TimelineItem; index: number }) =>
           {/* Company Info */}
           <div className="flex-grow min-w-0">
             <div className="flex items-start gap-8 mb-1">
-              <h4 className="font-semibold text-lg line-clamp-1 flex-grow">{item.title}</h4>
+              <h4 className="font-semibold text-lg line-clamp-1 flex-grow">
+                {item.title}
+              </h4>
               <div className="flex-shrink-0 w-28 pt-1">
                 <Badge variant="outline" className="text-xs whitespace-nowrap">
                   {item.year}
@@ -88,7 +95,7 @@ const TimelineCard = ({ item, index }: { item: TimelineItem; index: number }) =>
                   href={item.companyWebsite}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={e => e.stopPropagation()}
                   className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   <ExternalLink className="h-4 w-4" />
@@ -122,10 +129,25 @@ const AboutSection: React.FC = () => {
     { name: "Python", icon: SiPython, category: "Languages", color: "#3776AB" },
     { name: "C/C++", icon: SiC, category: "Languages", color: "#A8B9CC" },
     { name: "React", icon: SiReact, category: "Frontend", color: "#61DAFB" },
-    { name: "TypeScript", icon: SiTypescript, category: "Frontend", color: "#007ACC" },
-    { name: "PostgreSQL", icon: SiPostgresql, category: "Database", color: "#4169E1" },
+    {
+      name: "TypeScript",
+      icon: SiTypescript,
+      category: "Frontend",
+      color: "#007ACC",
+    },
+    {
+      name: "PostgreSQL",
+      icon: SiPostgresql,
+      category: "Database",
+      color: "#4169E1",
+    },
     { name: "MySQL", icon: SiMysql, category: "Database", color: "#4479A1" },
-    { name: "MongoDB", icon: SiMongodb, category: "Database", color: "#47A248" },
+    {
+      name: "MongoDB",
+      icon: SiMongodb,
+      category: "Database",
+      color: "#47A248",
+    },
     { name: "AWS", icon: SiAmazon, category: "DevOps", color: "#FF9900" },
     { name: "Docker", icon: SiDocker, category: "DevOps", color: "#2496ED" },
     { name: "Git", icon: SiGit, category: "DevOps", color: "#F05032" },
@@ -137,11 +159,7 @@ const AboutSection: React.FC = () => {
       title: "Frontend Development",
       description:
         "Modern React applications with TypeScript and state-of-the-art UI libraries.",
-      technologies: [
-        "React",
-        "TypeScript",
-        "Tailwind CSS",
-      ],
+      technologies: ["React", "TypeScript", "Tailwind CSS"],
     },
     {
       icon: Database,
@@ -155,7 +173,7 @@ const AboutSection: React.FC = () => {
         "Php/Symfony",
         "MySQL",
         "MongoDB",
-        "Redis"
+        "Redis",
       ],
     },
     /* {
@@ -183,26 +201,27 @@ const AboutSection: React.FC = () => {
   const timeline: TimelineItem[] = [
     {
       year: "09/2024 - 09/2025",
-      title: "Work-study Full-stack Developer",
+      title: "Full-stack Developer",
       company: "Cash Flow Positif",
-      description:
-        `— Architecture migration: Migration from Symfony/Twig to API Platform/React
-— Full-stack development: Development of a REST API, front-end and business automations with third-party services
-— DevOps and optimisation: Python scripts for database migration, AWS/Docker deployment`,
+      description: `- Design and migration of application architecture from Symfony/Twig
+        to a REST API architecture with API Platform and React
+        - Development of secure REST APIs in Symfony/Twig, React front-end integration,
+        and business process automation
+        - Writing Python scripts for database migration and deployment of
+        containerised applications with Docker on AWS`,
       companyLogo: "/companies/cfp.jpeg",
-      companyWebsite: "https://www.cashflowpositif.fr"
+      companyWebsite: "https://www.cashflowpositif.fr",
     },
     {
       year: "05/2024 - 09/2024",
       title: "Research Intern",
       company: "Laboratoire Institut Gustave Eiffel",
-      description:
-        `— Multi-agent algorithms: Development of trajectory planning (Held-Karp, Q-Learning)
+      description: `— Multi-agent algorithms: Development of trajectory planning (Held-Karp, Q-Learning)
 — Robotic simulation: ROS2/Gazebo testing
 — Embedded programming: Python/C development, inter-drone P2P communication and performance data analysis
 — Computer vision: Object detection and recognition using OpenCV and Nimbus`,
       companyLogo: "/companies/igm.png",
-      companyWebsite: "https://www.univ-gustave-eiffel.fr"
+      companyWebsite: "https://www.univ-gustave-eiffel.fr",
     },
   ];
 
@@ -228,17 +247,18 @@ const AboutSection: React.FC = () => {
           <div className="animate-slide-in">
             <h3 className="text-2xl font-semibold mb-6">My Story</h3>
             <p className="text-muted-foreground mb-4 leading-relaxed">
-              Graduate with a Master&apos;s degree in Software and Data Engineering, seeking a position as a Software Developer
-              or Full Stack Developer on a permanent contract starting in January 2026.
-              Passionate about application development and technical challenges, with solid development experience gained
-              through a work-study programme.
+              Graduate with a Master&apos;s degree in Software and Data
+              Engineering, seeking a position as a Software Developer or Full
+              Stack Developer on a permanent contract. Passionate about
+              application development and technical challenges, with solid
+              development experience gained through a work-study programme.
             </p>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               I believe in writing clean, maintainable code and staying
               up-to-date with the latest technologies. As a recent university
-              graduate with a master&apos;s degree, I bring fresh perspectives and
-              cutting-edge knowledge to software development. My approach combines
-              technical excellence with user-centered design to create
+              graduate with a master&apos;s degree, I bring fresh perspectives
+              and cutting-edge knowledge to software development. My approach
+              combines technical excellence with user-centered design to create
               applications that not only work flawlessly but also provide
               exceptional user experiences.
             </p>
@@ -254,7 +274,10 @@ const AboutSection: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <GraduationCap className="h-4 w-4" />
-                <span>Master Software and Data Engineering, Université Gustave Eiffel</span>
+                <span>
+                  Master Software and Data Engineering, Université Gustave
+                  Eiffel
+                </span>
               </div>
             </div>
           </div>
@@ -270,9 +293,9 @@ const AboutSection: React.FC = () => {
                   className="flex flex-col items-center p-4 rounded-lg bg-muted/50 hover:bg-muted/80 transition-all duration-300 animate-fade-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div 
+                  <div
                     className="w-12 h-12 mb-3 flex items-center justify-center"
-                    style={{ color: skill.color || 'currentColor' }}
+                    style={{ color: skill.color || "currentColor" }}
                   >
                     <skill.icon className="w-8 h-8" />
                   </div>
