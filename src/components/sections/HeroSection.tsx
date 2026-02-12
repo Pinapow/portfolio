@@ -151,7 +151,7 @@ const HeroSection: React.FC = () => {
                 <CardContent className="p-3 flex items-center gap-2">
                   <Calendar className="h-4 w-4 text-primary" />
                   <span className="text-sm font-medium">
-                    Available as soon as possible
+                    Available immediately
                   </span>
                 </CardContent>
               </Card>
