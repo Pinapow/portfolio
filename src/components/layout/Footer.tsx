@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
+import { motion } from "motion/react";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -11,38 +11,47 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border/50 relative">
-      {/* Gradient background */}
-      <div className="absolute inset-0 gradient-overlay-subtle opacity-40"></div>
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent"></div>
-      <div className="container-custom py-12 relative z-10">
-        <div className="flex flex-col items-center justify-center space-y-6">
-          {/* Back to Top Button */}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={scrollToTop}
-            className="rounded-full w-10 h-10 p-0 hover:bg-primary hover:text-primary-foreground transition-all duration-300 transform hover:scale-110"
-            aria-label="Back to top"
-          >
-            <ArrowUp className="h-4 w-4" />
-          </Button>
+    <footer className="relative border-t border-white/5 bg-background overflow-hidden pt-16 pb-8">
+      {/* Decorative blurred background elements */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-background to-background pointer-events-none -z-10" />
 
-          {/* Logo */}
+      <div className="container-custom relative z-10">
+        <div className="flex flex-col items-center justify-center space-y-8">
+          {/* Back to Top Button */}
+          <motion.button
+            onClick={scrollToTop}
+            className="group relative w-12 h-12 flex items-center justify-center rounded-full bg-secondary/30 border border-white/10 hover:bg-primary/20 hover:border-primary/50 transition-all duration-300 backdrop-blur-sm"
+            aria-label="Back to top"
+            whileHover={{ y: -5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ArrowUp className="h-5 w-5 text-foreground/80 group-hover:text-primary transition-colors" />
+            <div
+              className="absolute inset-0 rounded-full animate-ping bg-primary/20 opacity-0 group-hover:opacity-100"
+              style={{ animationDuration: "2s" }}
+            />
+          </motion.button>
+
+          {/* Brand / Logo */}
           <div className="text-center">
-            <h3 className="gradient-text font-bold text-xl mb-2">
-              Phuong LE
+            <h3 className="font-heading font-bold text-2xl mb-2 tracking-tight">
+              Phuong{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                LE
+              </span>
             </h3>
-            <p className="text-muted-foreground text-sm">
-              Full-Stack Developer
+            <p className="text-muted-foreground/80 text-sm font-light tracking-wide">
+              Engineering digital experiences
             </p>
           </div>
 
+          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-6" />
+
           {/* Copyright */}
-          <div className="text-center text-sm text-muted-foreground">
-            <p className="flex items-center justify-center gap-1">
-              © {currentYear} Phuong LE. Built with React & TypeScript
-            </p>
+          <div className="text-center text-sm text-muted-foreground/60 font-light flex flex-col sm:flex-row items-center gap-2">
+            <span>© {currentYear} Phuong LE.</span>
+            <span className="hidden sm:inline-block">•</span>
+            <span>Built with React, Next.js & Framer Motion</span>
           </div>
         </div>
       </div>

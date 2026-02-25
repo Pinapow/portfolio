@@ -1,7 +1,17 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { Menu, X, Github, Linkedin, Mail, Home, User, Briefcase, MessageCircle } from "lucide-react";
+import {
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  Mail,
+  Home,
+  User,
+  Briefcase,
+  MessageCircle,
+} from "lucide-react";
 import { Dock, DockIcon } from "@/components/ui/dock";
 
 const Navigation = () => {
@@ -15,18 +25,22 @@ const Navigation = () => {
       { id: "projects", label: "Projects", icon: Briefcase },
       { id: "contact", label: "Contact", icon: MessageCircle },
     ],
-    []
+    [],
   );
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/Pinapow", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com/in/phuong-le77100", label: "LinkedIn" },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com/in/phuong-le77100",
+      label: "LinkedIn",
+    },
     { icon: Mail, href: "mailto:phuong.le77100@gmail.com", label: "Email" },
   ];
 
   const handleScroll = useCallback(() => {
-    const sections = navigationItems.map(item =>
-      document.getElementById(item.id)
+    const sections = navigationItems.map((item) =>
+      document.getElementById(item.id),
     );
     const scrollPosition = window.scrollY + 100;
 
@@ -54,9 +68,13 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Dock Navigation at Bottom */}
-      <div className="fixed bottom-8 left-0 right-0 z-50 hidden md:block px-4 py-2">
-        <Dock className="bg-background/60 backdrop-blur-lg border-border/30 gradient-overlay-subtle" iconSize={45} iconMagnification={65}>
+      {/* Dock Navigation at Top */}
+      <div className="fixed top-8 left-0 right-0 z-50 hidden md:block px-4 py-2">
+        <Dock
+          className="bg-background/60 backdrop-blur-lg border-border/30 gradient-overlay-subtle"
+          iconSize={45}
+          iconMagnification={65}
+        >
           {/* Logo/Home Button */}
           <DockIcon
             onClick={() => scrollToSection("home")}
@@ -73,7 +91,7 @@ const Navigation = () => {
           <div className="w-px h-8 bg-border/50 mx-1"></div>
 
           {/* Navigation Items */}
-          {navigationItems.slice(1).map(item => (
+          {navigationItems.slice(1).map((item) => (
             <DockIcon
               key={item.id}
               onClick={() => scrollToSection(item.id)}
@@ -83,12 +101,12 @@ const Navigation = () => {
                   : "hover:bg-muted text-muted-foreground hover:text-foreground"
               }`}
             >
-              <item.icon 
+              <item.icon
                 className={`h-5 w-5 transition-colors ${
-                  activeSection === item.id 
-                    ? "text-primary" 
+                  activeSection === item.id
+                    ? "text-primary"
                     : "group-hover:text-foreground"
-                }`} 
+                }`}
               />
             </DockIcon>
           ))}
@@ -97,24 +115,31 @@ const Navigation = () => {
           <div className="w-px h-8 bg-border/50 mx-1"></div>
 
           {/* Social Links */}
-          {socialLinks.map(link => (
+          {socialLinks.map((link) => (
             <DockIcon
               key={link.label}
-              className="group transition-colors hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer"
+              className="group transition-colors hover:bg-muted text-muted-foreground hover:text-foreground cursor-pointer relative"
               title={link.label}
+              onClick={() => {
+                window.open(
+                  link.href,
+                  link.href.startsWith("mailto:") ? "_self" : "_blank",
+                );
+              }}
             >
               <a
                 href={link.href}
                 target={link.href.startsWith("mailto:") ? "_self" : "_blank"}
-                rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                className="flex items-center justify-center w-full h-full"
-                onClick={() => {
-                  console.log('Clicking on:', link.label, link.href);
-                  // Let the default anchor behavior handle the navigation
-                }}
-              >
-                <link.icon className="h-4 w-4 transition-colors group-hover:text-foreground" />
-              </a>
+                rel={
+                  link.href.startsWith("mailto:")
+                    ? undefined
+                    : "noopener noreferrer"
+                }
+                className="absolute inset-0 z-10"
+                aria-label={link.label}
+                onClick={(e) => e.preventDefault()}
+              />
+              <link.icon className="h-4 w-4 transition-colors group-hover:text-foreground pointer-events-none" />
             </DockIcon>
           ))}
         </Dock>
@@ -127,18 +152,17 @@ const Navigation = () => {
           className="w-12 h-12 bg-background/60 backdrop-blur-md border border-border/50 rounded-full flex items-center justify-center text-foreground hover:text-primary transition-all duration-300 hover:scale-110 shadow-lg gradient-overlay-subtle"
           aria-label="Toggle menu"
         >
-          {isOpen ? (
-            <X className="h-5 w-5" />
-          ) : (
-            <Menu className="h-5 w-5" />
-          )}
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 z-40 md:hidden">
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm gradient-bg-mesh opacity-90" onClick={() => setIsOpen(false)} />
+          <div
+            className="absolute inset-0 bg-background/80 backdrop-blur-sm gradient-bg-mesh opacity-90"
+            onClick={() => setIsOpen(false)}
+          />
           <div className="relative flex flex-col items-center justify-center min-h-screen p-8">
             <div className="bg-card/95 backdrop-blur-md border border-border/50 rounded-2xl p-6 w-full max-w-sm shadow-2xl gradient-overlay-subtle">
               <div className="text-center mb-6">
@@ -151,7 +175,7 @@ const Navigation = () => {
               </div>
 
               <div className="space-y-2 mb-6">
-                {navigationItems.map(item => (
+                {navigationItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
@@ -168,12 +192,18 @@ const Navigation = () => {
               </div>
 
               <div className="flex items-center justify-center space-x-4 pt-4 border-t border-border">
-                {socialLinks.map(link => (
+                {socialLinks.map((link) => (
                   <a
                     key={link.label}
                     href={link.href}
-                    target={link.href.startsWith("mailto:") ? "_self" : "_blank"}
-                    rel={link.href.startsWith("mailto:") ? undefined : "noopener noreferrer"}
+                    target={
+                      link.href.startsWith("mailto:") ? "_self" : "_blank"
+                    }
+                    rel={
+                      link.href.startsWith("mailto:")
+                        ? undefined
+                        : "noopener noreferrer"
+                    }
                     className="w-12 h-12 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-full flex items-center justify-center transition-all duration-300 transform hover:scale-110"
                     aria-label={link.label}
                   >

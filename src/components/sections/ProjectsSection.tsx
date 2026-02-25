@@ -1,281 +1,245 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import React, { useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { ExternalLink, Github } from "lucide-react";
 import Image from "next/image";
 import { Project } from "@/types";
 import { cn } from "@/lib/utils";
-import { Marquee } from "@/components/magicui/marquee";
+import { Marquee } from "@/components/ui/Marquee";
 import { projects } from "@/data/projects";
-
-interface TruncatedDescriptionProps {
-  description: string;
-  className?: string;
-  maxLines?: number;
-}
-
-const lineClampClass: Record<number, string> = {
-  1: "line-clamp-1",
-  2: "line-clamp-2",
-  3: "line-clamp-3",
-  4: "line-clamp-4",
-  5: "line-clamp-5",
-  6: "line-clamp-6",
-};
-
-const TruncatedDescription: React.FC<TruncatedDescriptionProps> = ({
-  description,
-  className = "",
-  maxLines = 3
-}) => {
-  const [isOverflowing, setIsOverflowing] = useState(false);
-  const textRef = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    const checkOverflow = () => {
-      const element = textRef.current;
-      if (element) {
-        const computedStyle = window.getComputedStyle(element);
-        const lineHeight = parseInt(computedStyle.lineHeight);
-        const maxHeight = lineHeight * maxLines;
-        setIsOverflowing(element.scrollHeight > maxHeight);
-      }
-    };
-
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
-    return () => window.removeEventListener('resize', checkOverflow);
-  }, [description, maxLines]);
-
-  const clampClass = lineClampClass[maxLines] ?? "line-clamp-3";
-  const baseClasses = cn(className, clampClass);
-
-  if (!isOverflowing) {
-    return (
-      <p ref={textRef} className={baseClasses}>
-        {description}
-      </p>
-    );
-  }
-
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <p
-          ref={textRef}
-          className={cn(baseClasses, "cursor-help hover:text-foreground transition-colors")}
-        >
-          {description}
-        </p>
-      </TooltipTrigger>
-      <TooltipContent className="max-w-xs p-3">
-        <p className="text-sm leading-relaxed">{description}</p>
-      </TooltipContent>
-    </Tooltip>
-  );
-};
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
 interface ProjectCardProps {
   project: Project;
   variant?: "default" | "featured";
 }
 
-const ProjectCard = ({ project, variant = "default" }: ProjectCardProps) => {
+const TiltCard = ({ project, variant = "default" }: ProjectCardProps) => {
   const isFeatured = variant === "featured";
+  const ref = useRef<HTMLDivElement>(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    x.set(0);
+    y.set(0);
+  };
 
   return (
-    <Card
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+      }}
       className={cn(
-        "relative h-full cursor-pointer overflow-hidden border flex flex-col",
+        "relative rounded-3xl cursor-pointer flex flex-col h-full bg-secondary/20 border border-white/5 backdrop-blur-xl transition-all duration-300",
         isFeatured
-          ? "card-hover border-primary/20 shadow-lg hover:shadow-xl hover:shadow-primary/10 transition-all duration-300 hover:scale-[1.02]"
-          : "w-80 border-border/50 bg-card hover:bg-card/80",
+          ? "shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]"
+          : "w-[340px] shadow-xl",
       )}
     >
-      <div className="relative overflow-hidden">
-        <Image
-          src={project.image}
-          alt={project.title}
-          width={isFeatured ? 800 : 320}
-          height={192}
-          className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
-        />
-        <div className="absolute top-3 left-3">
-          <Badge className={cn(
-            "text-primary-foreground",
-            isFeatured ? "bg-primary shadow-lg" : "bg-primary/90"
-          )}>
-            {project.category}
-          </Badge>
-        </div>
-        {isFeatured && (
-          <div className="absolute top-3 right-3">
-            <div className="bg-primary/90 text-primary-foreground px-2 py-1 rounded-full text-xs font-medium shadow-lg">
-              ⭐ Featured
-            </div>
+      <div
+        className="absolute inset-0 rounded-3xl opacity-0 transition-opacity duration-300 pointer-events-none"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background:
+            "radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.06), transparent 40%)",
+        }}
+      />
+
+      {/* Image Section */}
+      <div className="relative p-2" style={{ transform: "translateZ(30px)" }}>
+        <div className="relative overflow-hidden rounded-2xl aspect-[16/9] w-full">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="w-full h-full object-cover transition-transform duration-700 ease-out"
+            style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+
+          <div className="absolute top-4 left-4 flex gap-2">
+            <Badge className="bg-primary/90 text-primary-foreground backdrop-blur-md border-none shadow-lg">
+              {project.category}
+            </Badge>
+            {isFeatured && (
+              <Badge className="bg-accent/90 text-accent-foreground backdrop-blur-md border-none shadow-lg">
+                Featured
+              </Badge>
+            )}
           </div>
-        )}
+        </div>
       </div>
 
-      <CardHeader className="flex-shrink-0">
-        <h4 className="text-xl font-semibold line-clamp-2">{project.title}</h4>
-        <TruncatedDescription
-          description={project.description}
-          className="text-muted-foreground text-sm leading-relaxed"
-          maxLines={3}
-        />
-      </CardHeader>
+      {/* Content Section */}
+      <div
+        className="p-6 flex flex-col flex-grow"
+        style={{ transform: "translateZ(40px)" }}
+      >
+        <h4 className="font-heading font-bold text-xl md:text-2xl mb-3 text-foreground line-clamp-2">
+          {project.title}
+        </h4>
 
-      <CardContent className="pt-0 flex flex-col flex-grow">
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mb-4 min-h-[2.5rem]">
-          {(isFeatured ? project.technologies : project.technologies.slice(0, 4)).map(tech => (
-            <Badge key={tech} variant="outline" className="text-xs">
+        <p className="text-muted-foreground/80 text-sm md:text-base leading-relaxed mb-6 font-light line-clamp-3">
+          {project.description}
+        </p>
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-6 mt-auto">
+          {(isFeatured
+            ? project.technologies
+            : project.technologies.slice(0, 4)
+          ).map((tech) => (
+            <span
+              key={tech}
+              className="text-xs px-2.5 py-1 rounded-full bg-background/50 border border-white/5 text-muted-foreground"
+            >
               {tech}
-            </Badge>
+            </span>
           ))}
           {!isFeatured && project.technologies.length > 4 && (
-            <Badge variant="outline" className="text-xs">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-background/50 border border-white/5 text-muted-foreground">
               +{project.technologies.length - 4}
-            </Badge>
+            </span>
           )}
         </div>
 
-        {/* Metrics */}
-        {project.metrics && (
-          <div className="grid grid-cols-3 gap-4 mb-4 text-center flex-shrink-0">
-            <div>
-              <div className="text-lg font-semibold text-primary">
-                {project.metrics.performance}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                Performance
-              </div>
-            </div>
-            <div>
-              <div className="text-lg font-semibold text-primary">
-                {project.metrics.users}
-              </div>
-              <div className="text-xs text-muted-foreground">Users</div>
-            </div>
-            <div>
-              <div className="text-lg font-semibold text-primary">
-                {project.metrics.uptime}
-              </div>
-              <div className="text-xs text-muted-foreground">
-                Uptime
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Action Buttons */}
-        <div className="flex gap-2 mt-auto">
+        {/* Action Links */}
+        <div className="flex items-center gap-3 pt-4 border-t border-white/5">
           {project.liveUrl && (
-            <Button
-              size="sm"
-              className="flex-1"
-              onClick={() => window.open(project.liveUrl, "_blank")}
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 flex-1 py-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary hover:text-primary-foreground transition-colors text-sm font-medium"
             >
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Live Demo
-            </Button>
+              <ExternalLink className="h-4 w-4" /> Live Demo
+            </a>
           )}
-          <Button
-            size="sm"
-            variant="outline"
-            className={project.liveUrl ? "" : "flex-1"}
-            onClick={() => window.open(project.githubUrl, "_blank")}
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              "flex items-center justify-center gap-2 py-2.5 rounded-xl bg-secondary/50 text-foreground hover:bg-secondary hover:text-foreground transition-colors text-sm font-medium border border-white/5",
+              project.liveUrl ? "px-4" : "flex-1",
+            )}
           >
-            <Github className="h-4 w-4" />
-          </Button>
+            <Github className="h-4 w-4" />{" "}
+            {project.liveUrl ? "" : "Source Code"}
+          </a>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </motion.div>
   );
 };
 
 const ProjectsSection: React.FC = () => {
-  const featuredProjects = projects.filter(project => project.featured);
+  const featuredProjects = projects.filter((project) => project.featured);
 
   return (
-    <TooltipProvider>
-      <section id="projects" className="section-padding relative">
-        {/* Projects-specific gradient background */}
-        <div className="absolute inset-0 gradient-bg-projects"></div>
-        <div className="container-custom relative z-10">
+    <section id="projects" className="relative py-32 overflow-hidden">
+      <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Featured <span className="gradient-text">Projects</span>
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/50 border border-white/5 text-muted-foreground text-sm font-medium mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary"></span>
+            Portfolio
+          </div>
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            Selected{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+              Works
+            </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            A showcase of my recent work, demonstrating expertise across
-            different technologies and domains. Each project represents a unique
-            challenge and innovative solution.
+          <p className="text-lg text-muted-foreground/80 font-light">
+            A showcase of my recent engineering projects, demonstrating scalable
+            architecture, elegant interfaces, and real-world impact.
           </p>
+        </motion.div>
+
+        {/* Featured Projects Grid */}
+        <div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32"
+          style={{ perspective: "1000px" }}
+        >
+          {featuredProjects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
+              className="h-full"
+            >
+              <TiltCard project={project} variant="featured" />
+            </motion.div>
+          ))}
         </div>
 
-        {/* Featured Projects */}
-        <div className="mb-20 relative">
-          <div className="absolute inset-0 gradient-bg-mesh opacity-40 rounded-3xl -m-8 animate-gradient-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/8 via-primary/12 to-primary/8 rounded-3xl -m-8"></div>
-          <div className="relative z-10 p-8">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                <span className="text-sm font-medium text-primary uppercase tracking-wider">Featured Work</span>
-                <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-bold mb-4">
-                <span className="gradient-text">Highlighted</span> Projects
-              </h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                My most impactful and innovative projects that showcase advanced technical skills and creative problem-solving.
-              </p>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {featuredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className="animate-fade-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <ProjectCard project={project} variant="featured" />
+        {/* Continuous Projects Marquee */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="relative w-[100vw] left-1/2 -translate-x-1/2 pt-16 pb-20 border-t border-white/5 bg-secondary/10"
+        >
+          <div className="text-center mb-12">
+            <h3 className="font-heading text-2xl font-semibold opacity-80">
+              More Explorations
+            </h3>
+          </div>
+
+          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+
+          <div style={{ perspective: "1000px" }}>
+            <Marquee pauseOnHover className="[--duration:60s] py-4">
+              {projects.map((project) => (
+                <div key={project.id} className="mx-4 h-full">
+                  <TiltCard project={project} />
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-
-        {/* All Projects Marquee */}
-        <div>
-          <h3 className="text-2xl font-semibold mb-8 text-center">
-            All Projects
-          </h3>
-          <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-            <Marquee pauseOnHover className="[--duration:25s]">
-              {projects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))}
             </Marquee>
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-background"></div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-background"></div>
           </div>
-        </div>
-
+        </motion.div>
       </div>
     </section>
-    </TooltipProvider>
   );
 };
 

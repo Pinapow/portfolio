@@ -9,13 +9,11 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import emailjs from '@emailjs/browser';
-import {
-  Send,
-  CheckCircle,
-} from "lucide-react";
+import emailjs from "@emailjs/browser";
+import { Send, CheckCircle } from "lucide-react";
 import { FormData } from "@/types";
 import { contactInfo, socialLinks } from "@/data/contact";
+import { motion } from "motion/react";
 
 const ContactSection: React.FC = () => {
   const { toast } = useToast();
@@ -48,7 +46,7 @@ const ContactSection: React.FC = () => {
         serviceId,
         templateId,
         formRef.current,
-        publicKey
+        publicKey,
       );
 
       if (result.status === 200) {
@@ -75,51 +73,75 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-muted/30 relative">
-      {/* Contact-specific gradient background */}
-      <div className="absolute inset-0 gradient-bg-contact"></div>
+    <section id="contact" className="relative py-32 overflow-hidden">
+      <div className="absolute inset-0 bg-background/50 z-0"></div>
+
+      {/* Decorative blurred background elements */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] pointer-events-none -z-10" />
+
       <div className="container-custom relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 animate-fade-up">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Get In <span className="gradient-text">Touch</span>
+        <motion.div
+          className="text-center max-w-3xl mx-auto mb-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/50 border border-white/5 text-muted-foreground text-sm font-medium mb-6">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            Contact
+          </div>
+          <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
+            Get In{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+              Touch
+            </span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Ready to bring your ideas to life? Let&apos;s discuss your
-            project and explore how we can work together to create something
-            amazing.
+          <p className="text-lg text-muted-foreground/80 font-light">
+            Ready to bring your ideas to life? Let&apos;s discuss your project
+            and explore how we can work together to create something amazing.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Contact Information */}
-          <div className="animate-slide-in">
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4">
+          <motion.div
+            className="space-y-12"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <div>
+              <h3 className="font-heading text-2xl font-semibold mb-4">
                 Let&apos;s Connect
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                I&apos;m always interested in new opportunities,
-                collaborations, and challenging projects. Whether you&apos;re
-                looking for a technical consultant, full-stack developer, or
-                just want to chat about technology, feel free to reach
-                out.
+              <p className="text-muted-foreground/90 leading-relaxed font-light text-lg">
+                I&apos;m always interested in new opportunities, collaborations,
+                and challenging projects. Whether you&apos;re looking for a
+                technical consultant, full-stack developer, or just want to chat
+                about technology, feel free to reach out.
               </p>
             </div>
 
             {/* Contact Details */}
-            <div className="space-y-4 mb-8">
+            <div className="space-y-6">
               {contactInfo.map((info, index) => (
-                <div
+                <motion.div
                   key={info.label}
-                  className="flex items-center gap-4 animate-fade-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="flex items-center gap-6 p-4 rounded-2xl bg-secondary/20 border border-white/5 backdrop-blur-sm hover:bg-secondary/40 transition-colors"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <info.icon className="h-5 w-5 text-primary" />
+                  <div className="w-14 h-14 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <info.icon className="h-6 w-6 text-primary" />
                   </div>
                   <div>
-                    <div className="font-medium">{info.label}</div>
+                    <div className="text-sm text-muted-foreground/80 font-medium mb-1">
+                      {info.label}
+                    </div>
                     {info.href ? (
                       <a
                         href={info.href}
@@ -131,93 +153,127 @@ const ContactSection: React.FC = () => {
                             ? "noopener noreferrer"
                             : undefined
                         }
-                        className="text-muted-foreground hover:text-primary transition-colors"
+                        className="text-foreground hover:text-primary transition-colors font-semibold text-lg"
                       >
                         {info.value}
                       </a>
                     ) : (
-                      <div className="text-muted-foreground">{info.value}</div>
+                      <div className="text-foreground font-semibold text-lg">
+                        {info.value}
+                      </div>
                     )}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Social Links */}
             <div>
-              <h4 className="font-semibold mb-4">Follow Me</h4>
+              <h4 className="font-heading font-semibold mb-6 flex items-center gap-2">
+                <span className="w-8 h-[1px] bg-primary/30"></span> Follow Me
+              </h4>
               <div className="flex gap-4">
                 {socialLinks.map((social, index) => (
-                  <a
+                  <motion.a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 bg-primary/10 hover:bg-primary hover:text-primary-foreground rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 animate-fade-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="w-12 h-12 bg-secondary/40 border border-white/5 hover:border-primary/50 hover:bg-primary/10 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg shadow-black/20"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
                     aria-label={social.label}
                   >
-                    <social.icon className="h-5 w-5" />
-                  </a>
+                    <social.icon className="h-5 w-5 text-foreground/80" />
+                  </motion.a>
                 ))}
               </div>
             </div>
 
             {/* Response Time */}
-            <Card className="mt-8 border-primary/20 animate-fade-up">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="h-5 w-5 text-primary" />
-                  <div>
-                    <div className="font-medium">Quick Response Time</div>
-                    <div className="text-sm text-muted-foreground">
-                      I typically respond within 4-6 hours during business days
-                    </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="p-6 rounded-2xl bg-gradient-to-r from-primary/10 to-transparent border border-primary/20"
+            >
+              <div className="flex items-center gap-4">
+                <CheckCircle className="h-6 w-6 text-primary animate-pulse" />
+                <div>
+                  <div className="font-heading font-semibold">
+                    Quick Response Time
+                  </div>
+                  <div className="text-sm text-muted-foreground/80 font-light">
+                    I typically respond within 4-6 hours during business days
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </motion.div>
+          </motion.div>
 
           {/* Contact Form */}
-          <div className="animate-fade-in">
-            <Card>
-              <CardHeader>
-                <CardTitle>Send Me a Message</CardTitle>
+          <motion.div
+            className="lg:h-full flex flex-col"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <Card className="flex-1 bg-secondary/20 backdrop-blur-xl border-white/10 shadow-2xl rounded-3xl overflow-hidden focus-within:ring-1 focus-within:ring-primary/50 transition-all duration-300 hover:shadow-primary/5">
+              <CardHeader className="p-8 border-b border-white/5 bg-secondary/10">
+                <CardTitle className="font-heading text-2xl">
+                  Send a Message
+                </CardTitle>
               </CardHeader>
-              <CardContent>
-                <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Full Name *</Label>
+              <CardContent className="p-8">
+                <form
+                  ref={formRef}
+                  onSubmit={handleSubmit(onSubmit)}
+                  className="space-y-6"
+                >
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-3">
+                      <Label htmlFor="name" className="text-muted-foreground">
+                        Full Name
+                      </Label>
                       <Input
                         id="name"
                         type="text"
                         placeholder="John Doe"
                         aria-invalid={errors.name ? "true" : "false"}
                         className={cn(
-                          "transition-all duration-200 focus:ring-2 focus:ring-primary/20",
-                          errors.name && "border-destructive focus:ring-destructive/20"
+                          "bg-background/50 border-white/10 h-12 rounded-xl transition-all duration-300 focus:bg-background/80 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30",
+                          errors.name &&
+                            "border-destructive focus:ring-destructive/20",
                         )}
                         {...register("name", {
                           required: "Full name is required",
-                          minLength: { value: 2, message: "Name must be at least 2 characters" },
+                          minLength: {
+                            value: 2,
+                            message: "Name must be at least 2 characters",
+                          },
                         })}
                       />
                       {errors.name && (
-                        <p className="text-sm text-destructive">{errors.name.message}</p>
+                        <p className="text-xs text-destructive">
+                          {errors.name.message}
+                        </p>
                       )}
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
+                    <div className="space-y-3">
+                      <Label htmlFor="email" className="text-muted-foreground">
+                        Email Address
+                      </Label>
                       <Input
                         id="email"
                         type="email"
                         placeholder="john@example.com"
                         aria-invalid={errors.email ? "true" : "false"}
                         className={cn(
-                          "transition-all duration-200 focus:ring-2 focus:ring-primary/20",
-                          errors.email && "border-destructive focus:ring-destructive/20"
+                          "bg-background/50 border-white/10 h-12 rounded-xl transition-all duration-300 focus:bg-background/80 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30",
+                          errors.email &&
+                            "border-destructive focus:ring-destructive/20",
                         )}
                         {...register("email", {
                           required: "Email is required",
@@ -228,67 +284,85 @@ const ContactSection: React.FC = () => {
                         })}
                       />
                       {errors.email && (
-                        <p className="text-sm text-destructive">{errors.email.message}</p>
+                        <p className="text-xs text-destructive">
+                          {errors.email.message}
+                        </p>
                       )}
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="subject">Subject *</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="subject" className="text-muted-foreground">
+                      Subject
+                    </Label>
                     <Input
                       id="subject"
                       type="text"
                       placeholder="Project Discussion"
                       aria-invalid={errors.subject ? "true" : "false"}
                       className={cn(
-                        "transition-all duration-200 focus:ring-2 focus:ring-primary/20",
-                        errors.subject && "border-destructive focus:ring-destructive/20"
+                        "bg-background/50 border-white/10 h-12 rounded-xl transition-all duration-300 focus:bg-background/80 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30",
+                        errors.subject &&
+                          "border-destructive focus:ring-destructive/20",
                       )}
                       {...register("subject", {
                         required: "Subject is required",
-                        minLength: { value: 3, message: "Subject must be at least 3 characters" },
+                        minLength: {
+                          value: 3,
+                          message: "Subject must be at least 3 characters",
+                        },
                       })}
                     />
                     {errors.subject && (
-                      <p className="text-sm text-destructive">{errors.subject.message}</p>
+                      <p className="text-xs text-destructive">
+                        {errors.subject.message}
+                      </p>
                     )}
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message *</Label>
+                  <div className="space-y-3">
+                    <Label htmlFor="message" className="text-muted-foreground">
+                      Message
+                    </Label>
                     <Textarea
                       id="message"
                       placeholder="Tell me about your project, timeline, and any specific requirements..."
                       rows={6}
                       aria-invalid={errors.message ? "true" : "false"}
                       className={cn(
-                        "resize-none transition-all duration-200 focus:ring-2 focus:ring-primary/20",
-                        errors.message && "border-destructive focus:ring-destructive/20"
+                        "resize-none bg-background/50 border-white/10 rounded-xl transition-all duration-300 focus:bg-background/80 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30 p-4",
+                        errors.message &&
+                          "border-destructive focus:ring-destructive/20",
                       )}
                       {...register("message", {
                         required: "Message is required",
-                        minLength: { value: 10, message: "Message must be at least 10 characters" },
+                        minLength: {
+                          value: 10,
+                          message: "Message must be at least 10 characters",
+                        },
                       })}
                     />
                     {errors.message && (
-                      <p className="text-sm text-destructive">{errors.message.message}</p>
+                      <p className="text-xs text-destructive">
+                        {errors.message.message}
+                      </p>
                     )}
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full"
+                    className="w-full h-14 rounded-xl text-[15px] font-semibold tracking-wide"
                     size="lg"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
-                        <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin mr-2" />
-                        Sending...
+                        <div className="w-5 h-5 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin mr-3" />
+                        Transmitting...
                       </>
                     ) : (
                       <>
-                        <Send className="h-4 w-4 mr-2" />
+                        <Send className="h-5 w-5 mr-3" />
                         Send Message
                       </>
                     )}
@@ -296,7 +370,7 @@ const ContactSection: React.FC = () => {
                 </form>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
