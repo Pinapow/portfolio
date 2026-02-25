@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Menu, X, Github, Linkedin, Mail, Home, User, Briefcase, MessageCircle } from "lucide-react";
 import { Dock, DockIcon } from "@/components/ui/dock";

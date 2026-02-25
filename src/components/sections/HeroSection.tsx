@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useCallback, useState, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -6,16 +8,13 @@ import {
   ArrowDown,
   Download,
   Mail,
-  Github,
-  Linkedin,
   MapPin,
   Calendar,
   Code2,
   Database,
 } from "lucide-react";
-import { SiReact, SiSpring, SiDocker } from "react-icons/si";
-import { DiJava } from "react-icons/di";
 import heroWorkspace from "@/assets/hero-workspace.jpg";
+import { socialLinks, techIcons } from "@/data/hero";
 import profilePhoto from "@/assets/profile.jpeg";
 
 // Constants
@@ -37,23 +36,6 @@ const HeroSection: React.FC = () => {
       return () => clearTimeout(timer);
     }
   }, [currentIndex]);
-
-  // Data constants
-  const socialLinks = [
-    { icon: Github, href: "https://github.com/Pinapow", label: "GitHub" },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/in/phuong-le77100/",
-      label: "LinkedIn",
-    },
-  ] as const;
-
-  const techIcons = [
-    { icon: SiReact, color: "#61DAFB", name: "React", angle: 0 },
-    { icon: DiJava, color: "#ED8B00", name: "Java", angle: 90 },
-    { icon: SiSpring, color: "#6DB33F", name: "Spring", angle: 180 },
-    { icon: SiDocker, color: "#2496ED", name: "Docker", angle: 270 },
-  ] as const;
 
   // Navigation functions
   const scrollToSection = useCallback((sectionId: string): void => {

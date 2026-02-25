@@ -1,9 +1,9 @@
+"use client";
+
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Code2,
-  Database,
   Calendar,
   MapPin,
   GraduationCap,
@@ -12,23 +12,8 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Image from "next/image";
-import {
-  SiSpring,
-  SiPhp,
-  SiSymfony,
-  SiPython,
-  SiC,
-  SiReact,
-  SiTypescript,
-  SiPostgresql,
-  SiMysql,
-  SiMongodb,
-  SiAmazon,
-  SiDocker,
-  SiGit,
-} from "react-icons/si";
-import { DiJava } from "react-icons/di";
-import { Skill, ExpertiseArea, TimelineItem } from "@/types";
+import { TimelineItem } from "@/types";
+import { skills, expertiseAreas, timeline } from "@/data/about";
 
 const TimelineCard = ({
   item,
@@ -41,9 +26,19 @@ const TimelineCard = ({
 
   return (
     <Card
-      className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 animate-fade-up"
+      className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 animate-fade-up focus-within:ring-2 focus-within:ring-primary/50 focus-within:ring-offset-2 focus-within:ring-offset-background"
       style={{ animationDelay: `${index * 0.1}s` }}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isExpanded}
+      aria-label={`${item.title} at ${item.company}, ${item.year}. ${isExpanded ? "Collapse" : "Expand"} for details.`}
       onClick={() => setIsExpanded(!isExpanded)}
+      onKeyDown={(e: React.KeyboardEvent) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setIsExpanded(!isExpanded);
+        }
+      }}
     >
       <CardContent className="p-6">
         <div className="flex items-start gap-4">
@@ -82,9 +77,9 @@ const TimelineCard = ({
               {/* Expand/Collapse Icon - Right after the role */}
               <div className="flex-shrink-0 pt-0.5">
                 {isExpanded ? (
-                  <ChevronUp className="h-5 w-5 text-muted-foreground" />
+                  <ChevronUp className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 ) : (
-                  <ChevronDown className="h-5 w-5 text-muted-foreground" />
+                  <ChevronDown className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                 )}
               </div>
             </div>
@@ -121,110 +116,6 @@ const TimelineCard = ({
 };
 
 const AboutSection: React.FC = () => {
-  const skills: Skill[] = [
-    { name: "Java", icon: DiJava, category: "Languages", color: "#ED8B00" },
-    { name: "Spring", icon: SiSpring, category: "Backend", color: "#6DB33F" },
-    { name: "PHP", icon: SiPhp, category: "Languages", color: "#777BB4" },
-    { name: "Symfony", icon: SiSymfony, category: "Backend", color: "#000000" },
-    { name: "Python", icon: SiPython, category: "Languages", color: "#3776AB" },
-    { name: "C/C++", icon: SiC, category: "Languages", color: "#A8B9CC" },
-    { name: "React", icon: SiReact, category: "Frontend", color: "#61DAFB" },
-    {
-      name: "TypeScript",
-      icon: SiTypescript,
-      category: "Frontend",
-      color: "#007ACC",
-    },
-    {
-      name: "PostgreSQL",
-      icon: SiPostgresql,
-      category: "Database",
-      color: "#4169E1",
-    },
-    { name: "MySQL", icon: SiMysql, category: "Database", color: "#4479A1" },
-    {
-      name: "MongoDB",
-      icon: SiMongodb,
-      category: "Database",
-      color: "#47A248",
-    },
-    { name: "AWS", icon: SiAmazon, category: "DevOps", color: "#FF9900" },
-    { name: "Docker", icon: SiDocker, category: "DevOps", color: "#2496ED" },
-    { name: "Git", icon: SiGit, category: "DevOps", color: "#F05032" },
-  ];
-
-  const expertiseAreas: ExpertiseArea[] = [
-    {
-      icon: Code2,
-      title: "Frontend Development",
-      description:
-        "Modern React applications with TypeScript and state-of-the-art UI libraries.",
-      technologies: ["React", "TypeScript", "Tailwind CSS"],
-    },
-    {
-      icon: Database,
-      title: "Backend Architecture",
-      description:
-        "Scalable server-side solutions with microservices, APIs, and database optimization.",
-      technologies: [
-        "Java 21",
-        "Spring 6",
-        "PostgreSQL",
-        "Php/Symfony",
-        "MySQL",
-        "MongoDB",
-        "Redis",
-      ],
-    },
-    /* {
-      icon: Cloud,
-      title: "Cloud & DevOps",
-      description:
-        "Cloud-native applications with CI/CD pipelines, containerization, and monitoring.",
-      technologies: [
-        "AWS",
-        "Docker",
-        "Kubernetes",
-        "GitHub Actions",
-        "Terraform",
-      ],
-    }, */
-    /* {
-      icon: Smartphone,
-      title: "Mobile Development",
-      description:
-        "Cross-platform mobile applications with React Native and progressive web apps.",
-      technologies: ["React Native", "Expo", "PWA", "Firebase", "App Store"],
-    }, */
-  ];
-
-  const timeline: TimelineItem[] = [
-    {
-      year: "09/2024 - 09/2025",
-      title: "Full-stack Developer",
-      company: "Cash Flow Positif",
-      description: `- Design and migration of application architecture from Symfony/Twig
-        to a REST API architecture with API Platform and React
-        - Development of secure REST APIs in Symfony/Twig, React front-end integration,
-        and business process automation
-        - Writing Python scripts for database migration and deployment of
-        containerised applications with Docker on AWS`,
-      companyLogo: "/companies/cfp.jpeg",
-      companyWebsite: "https://www.cashflowpositif.fr",
-    },
-    {
-      year: "05/2024 - 09/2024",
-      title: "Research Intern",
-      company: "Laboratoire Institut Gustave Eiffel",
-      description: `— Multi-agent algorithms: Development of trajectory planning (Held-Karp, Q-Learning)
-— Robotic simulation: ROS2/Gazebo testing
-— Embedded programming: Python/C development, inter-drone P2P communication and performance data analysis
-— Computer vision: Object detection and recognition using OpenCV and Nimbus`,
-      companyLogo: "/companies/igm.png",
-      companyWebsite: "https://www.univ-gustave-eiffel.fr",
-    },
-  ];
-
   return (
     <section id="about" className="section-padding bg-muted/30 relative">
       {/* About-specific gradient background */}

@@ -1,111 +1,37 @@
-import React, { useState, useRef, useCallback } from "react";
+"use client";
+
+import React, { useRef } from "react";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { cn } from "@/lib/utils";
 import emailjs from '@emailjs/browser';
 import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
   Send,
-  Linkedin,
-  Github,
   CheckCircle,
 } from "lucide-react";
-import { ContactInfo, SocialLink, FormData } from "@/types";
-
-// Constants
-const INITIAL_FORM_DATA: FormData = {
-  name: "",
-  email: "",
-  subject: "",
-  message: "",
-};
+import { FormData } from "@/types";
+import { contactInfo, socialLinks } from "@/data/contact";
 
 const ContactSection: React.FC = () => {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const [formData, setFormData] = useState<FormData>(INITIAL_FORM_DATA);
 
-  const contactInfo: ContactInfo[] = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: "phuong.le77100@gmail.com",
-      href: "mailto:phuong.le77100@gmail.com",
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: "+33 6 95 32 43 98",
-      href: "tel:+33695324398",
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: "Meaux, Seine-et-Marne, France",
-      href: "https://maps.app.goo.gl/zY8ZEXHXCMJWLW118",
-    },
-    {
-      icon: Clock,
-      label: "Availability",
-      value: "Mon - Fri, 9AM - 6PM UTC+2",
-      href: null,
-    },
-  ];
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<FormData>({
+    defaultValues: { name: "", email: "", subject: "", message: "" },
+  });
 
-  const socialLinks: SocialLink[] = [
-    {
-      icon: Linkedin,
-      label: "LinkedIn",
-      href: "https://linkedin.com/in/phuong-le77100",
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      href: "https://github.com/Pinapow"
-    },
-  ];
-
-  // Handler functions
-  const handleInputChange = useCallback((
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ): void => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  }, []);
-
-  const validateForm = (): boolean => {
-    const { name, email, subject, message } = formData;
-    return !!(name.trim() && email.trim() && subject.trim() && message.trim());
-  };
-
-  const resetForm = (): void => {
-    setFormData(INITIAL_FORM_DATA);
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-        duration: 3000,
-      });
-      return;
-    }
-
-    setIsSubmitting(true);
-
+  const onSubmit: SubmitHandler<FormData> = async () => {
     try {
-      // EmailJS configuration
       const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
       const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
       const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
@@ -118,7 +44,6 @@ const ContactSection: React.FC = () => {
         throw new Error("Form reference is not available");
       }
 
-      // Send email using EmailJS
       const result = await emailjs.sendForm(
         serviceId,
         templateId,
@@ -133,21 +58,19 @@ const ContactSection: React.FC = () => {
             "Thank you for reaching out. I'll get back to you within 24 hours.",
           duration: 5000,
         });
-        resetForm();
+        reset();
       } else {
         throw new Error(`EmailJS returned status: ${result.status}`);
       }
     } catch (error) {
       console.error("Failed to send email:", error);
-      
+
       toast({
         title: "Failed to send message",
         description: "Please try again later or contact me directly via email.",
         variant: "destructive",
         duration: 5000,
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -263,33 +186,50 @@ const ContactSection: React.FC = () => {
                 <CardTitle>Send Me a Message</CardTitle>
               </CardHeader>
               <CardContent>
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+                <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="name">Full Name *</Label>
                       <Input
                         id="name"
-                        name="name"
                         type="text"
                         placeholder="John Doe"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
+                        aria-invalid={errors.name ? "true" : "false"}
+                        className={cn(
+                          "transition-all duration-200 focus:ring-2 focus:ring-primary/20",
+                          errors.name && "border-destructive focus:ring-destructive/20"
+                        )}
+                        {...register("name", {
+                          required: "Full name is required",
+                          minLength: { value: 2, message: "Name must be at least 2 characters" },
+                        })}
                       />
+                      {errors.name && (
+                        <p className="text-sm text-destructive">{errors.name.message}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email Address *</Label>
                       <Input
                         id="email"
-                        name="email"
                         type="email"
                         placeholder="john@example.com"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
+                        aria-invalid={errors.email ? "true" : "false"}
+                        className={cn(
+                          "transition-all duration-200 focus:ring-2 focus:ring-primary/20",
+                          errors.email && "border-destructive focus:ring-destructive/20"
+                        )}
+                        {...register("email", {
+                          required: "Email is required",
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: "Please enter a valid email address",
+                          },
+                        })}
                       />
+                      {errors.email && (
+                        <p className="text-sm text-destructive">{errors.email.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -297,28 +237,42 @@ const ContactSection: React.FC = () => {
                     <Label htmlFor="subject">Subject *</Label>
                     <Input
                       id="subject"
-                      name="subject"
                       type="text"
                       placeholder="Project Discussion"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-primary/20"
+                      aria-invalid={errors.subject ? "true" : "false"}
+                      className={cn(
+                        "transition-all duration-200 focus:ring-2 focus:ring-primary/20",
+                        errors.subject && "border-destructive focus:ring-destructive/20"
+                      )}
+                      {...register("subject", {
+                        required: "Subject is required",
+                        minLength: { value: 3, message: "Subject must be at least 3 characters" },
+                      })}
                     />
+                    {errors.subject && (
+                      <p className="text-sm text-destructive">{errors.subject.message}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="message">Message *</Label>
                     <Textarea
                       id="message"
-                      name="message"
                       placeholder="Tell me about your project, timeline, and any specific requirements..."
                       rows={6}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      className="resize-none transition-all duration-200 focus:ring-2 focus:ring-primary/20"
+                      aria-invalid={errors.message ? "true" : "false"}
+                      className={cn(
+                        "resize-none transition-all duration-200 focus:ring-2 focus:ring-primary/20",
+                        errors.message && "border-destructive focus:ring-destructive/20"
+                      )}
+                      {...register("message", {
+                        required: "Message is required",
+                        minLength: { value: 10, message: "Message must be at least 10 characters" },
+                      })}
                     />
+                    {errors.message && (
+                      <p className="text-sm text-destructive">{errors.message.message}</p>
+                    )}
                   </div>
 
                   <Button
