@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Syne, Outfit } from "next/font/google";
 import { BackgroundEffect } from "@/components/ui/BackgroundEffect";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 import "../globals.css";
 
 const syne = Syne({
@@ -43,12 +44,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark" style={{ colorScheme: "dark" }}>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${syne.variable} ${outfit.variable} font-sans antialiased bg-background text-foreground`}
       >
-        <BackgroundEffect />
-        {children}
+        <ThemeProvider>
+          <BackgroundEffect />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

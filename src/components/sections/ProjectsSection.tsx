@@ -15,8 +15,11 @@ interface ProjectCardProps {
   variant?: "default" | "featured";
 }
 
+const PLACEHOLDER_IMAGE = "/projects/available_soon.jpg";
+
 const TiltCard = ({ project, variant = "default" }: ProjectCardProps) => {
   const isFeatured = variant === "featured";
+  const isPlaceholder = project.image === PLACEHOLDER_IMAGE;
   const ref = useRef<HTMLDivElement>(null);
 
   const x = useMotionValue(0);
@@ -79,13 +82,36 @@ const TiltCard = ({ project, variant = "default" }: ProjectCardProps) => {
       {/* Image Section */}
       <div className="relative p-2" style={{ transform: "translateZ(30px)" }}>
         <div className="relative overflow-hidden rounded-2xl aspect-[16/9] w-full">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="w-full h-full object-cover transition-transform duration-700 ease-out"
-            style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
-          />
+          {isPlaceholder ? (
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-secondary via-secondary/80 to-background flex flex-col items-center justify-center gap-3"
+              role="img"
+              aria-label={`${project.title} preview`}
+            >
+              <div className="flex gap-1.5">
+                {project.technologies.slice(0, 4).map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-[10px] px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20 text-primary/70"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <span className="font-heading font-bold text-lg text-foreground/30 tracking-tight">
+                {project.title}
+              </span>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary)/0.08),_transparent_70%)]" />
+            </div>
+          ) : (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="w-full h-full object-cover transition-transform duration-700 ease-out"
+              style={{ transform: isHovered ? "scale(1.05)" : "scale(1)" }}
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
 
           <div className="absolute top-4 left-4 flex gap-2">
@@ -166,9 +192,10 @@ const TiltCard = ({ project, variant = "default" }: ProjectCardProps) => {
 
 const ProjectsSection: React.FC = () => {
   const featuredProjects = projects.filter((project) => project.featured);
+  const nonFeaturedProjects = projects.filter((project) => !project.featured);
 
   return (
-    <section id="projects" className="relative py-32 overflow-hidden">
+    <section id="projects" className="relative py-20 lg:py-24 overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Header */}
         <motion.div
@@ -195,7 +222,7 @@ const ProjectsSection: React.FC = () => {
 
         {/* Featured Projects Grid */}
         <div
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-32"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
           style={{ perspective: "1000px" }}
         >
           {featuredProjects.map((project, index) => (
@@ -213,31 +240,33 @@ const ProjectsSection: React.FC = () => {
         </div>
 
         {/* Continuous Projects Marquee */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="relative w-[100vw] left-1/2 -translate-x-1/2 pt-16 pb-20 border-t border-white/5 bg-secondary/10"
-        >
-          <div className="text-center mb-12">
-            <h3 className="font-heading text-2xl font-semibold opacity-80">
-              More Explorations
-            </h3>
-          </div>
+        {nonFeaturedProjects.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="relative w-[100vw] left-1/2 -translate-x-1/2 pt-16 pb-20 border-t border-white/5 bg-secondary/10"
+          >
+            <div className="text-center mb-12">
+              <h3 className="font-heading text-2xl font-semibold opacity-80">
+                More Explorations
+              </h3>
+            </div>
 
-          <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-          <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+            <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+            <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
 
-          <div style={{ perspective: "1000px" }}>
-            <Marquee pauseOnHover className="[--duration:60s] py-4">
-              {projects.map((project) => (
-                <div key={project.id} className="mx-4 h-full">
-                  <TiltCard project={project} />
-                </div>
-              ))}
-            </Marquee>
-          </div>
-        </motion.div>
+            <div style={{ perspective: "1000px" }}>
+              <Marquee pauseOnHover className="[--duration:40s] py-4">
+                {nonFeaturedProjects.map((project) => (
+                  <div key={project.id} className="mx-4 h-full">
+                    <TiltCard project={project} />
+                  </div>
+                ))}
+              </Marquee>
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );

@@ -1,11 +1,25 @@
 "use client";
 
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, Download, MessageCircle } from "lucide-react";
 import { motion } from "motion/react";
+
+const navigationItems = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
 
 const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const currentYear = new Date().getFullYear();
@@ -43,6 +57,38 @@ const Footer = () => {
             <p className="text-muted-foreground/80 text-sm font-light tracking-wide">
               Engineering digital experiences
             </p>
+          </div>
+
+          {/* Navigation Links */}
+          <nav className="flex flex-wrap justify-center gap-6" aria-label="Footer navigation">
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="text-sm text-muted-foreground/70 hover:text-primary transition-colors font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          {/* CTAs */}
+          <div className="flex flex-wrap justify-center gap-4">
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
+            >
+              <MessageCircle className="h-4 w-4" />
+              Let&apos;s Work Together
+            </button>
+            <a
+              href="/CV_Phuong_LE.pdf"
+              download="CV_Phuong_LE.pdf"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-secondary/30 border border-white/10 text-foreground text-sm font-semibold hover:bg-secondary/50 hover:border-primary/30 transition-colors"
+            >
+              <Download className="h-4 w-4" />
+              Download CV
+            </a>
           </div>
 
           <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-6" />

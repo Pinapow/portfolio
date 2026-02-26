@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ArrowDown, Download, Mail, MapPin, Calendar } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import { motion } from "motion/react";
 import { Spotlight } from "@/components/ui/Spotlight";
 import profilePhoto from "@/assets/profile.jpeg";
-import { socialLinks, techIcons } from "@/data/hero";
+import { socialLinks } from "@/data/hero";
 
 const HeroSection: React.FC = () => {
   const scrollToAbout = useCallback((): void => {
@@ -20,36 +19,6 @@ const HeroSection: React.FC = () => {
     const section = document.getElementById("contact");
     if (section) section.scrollIntoView({ behavior: "smooth" });
   }, []);
-
-  const [displayedText, setDisplayedText] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
-  const fullText = "Hi, I'm\nPhuong LE";
-
-  useEffect(() => {
-    let currentText = "";
-    let currentIndex = 0;
-
-    const timeout = setTimeout(() => {
-      const typingInterval = setInterval(() => {
-        if (currentIndex < fullText.length) {
-          currentText += fullText[currentIndex];
-          setDisplayedText(currentText);
-          currentIndex++;
-        } else {
-          clearInterval(typingInterval);
-          setIsTyping(false);
-        }
-      }, 100);
-
-      return () => clearInterval(typingInterval);
-    }, 500);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
-  const textParts = displayedText.split("\n");
-  const line1 = textParts[0];
-  const line2 = textParts.length > 1 ? textParts[1] : "";
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -104,27 +73,13 @@ const HeroSection: React.FC = () => {
 
             <motion.h1
               variants={itemVariants}
-              className="font-heading text-5xl sm:text-7xl lg:text-[5.5rem] font-bold leading-[1.1] tracking-tight mb-6 text-foreground min-h-[120px] sm:min-h-[160px] lg:min-h-[200px]"
+              className="font-heading text-5xl sm:text-7xl lg:text-[5.5rem] font-bold leading-[1.1] tracking-tight mb-6 text-foreground"
             >
-              {line1}
-              {textParts.length > 1 && <br />}
-              {line2 && (
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-300% animate-gradient-shift">
-                  {line2}
-                </span>
-              )}
-              {isTyping && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    duration: 0.4,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                  className="inline-block w-[4px] h-[0.9em] bg-primary ml-1 align-baseline"
-                />
-              )}
+              Hi, I&apos;m
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-300% animate-gradient-shift">
+                Phuong LE
+              </span>
             </motion.h1>
 
             <motion.p
@@ -135,33 +90,6 @@ const HeroSection: React.FC = () => {
               scalable architectures with stunning interfaces to build software
               that feels as good as it functions.
             </motion.p>
-
-            {/* Quick Status Cards */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-wrap gap-4 mb-10"
-            >
-              <Card className="bg-secondary/40 backdrop-blur-md border-white/5 shadow-xl">
-                <CardContent className="p-3 flex items-center gap-3">
-                  <div className="p-2 rounded-md bg-background/50 text-accent">
-                    <MapPin className="h-4 w-4" />
-                  </div>
-                  <span className="text-sm font-medium text-foreground/80">
-                    Paris, France
-                  </span>
-                </CardContent>
-              </Card>
-              <Card className="bg-secondary/40 backdrop-blur-md border-white/5 shadow-xl">
-                <CardContent className="p-3 flex items-center gap-3">
-                  <div className="p-2 rounded-md bg-background/50 text-accent">
-                    <Calendar className="h-4 w-4" />
-                  </div>
-                  <span className="text-sm font-medium text-foreground/80">
-                    Immediate Start
-                  </span>
-                </CardContent>
-              </Card>
-            </motion.div>
 
             {/* Actions */}
             <motion.div
@@ -183,7 +111,7 @@ const HeroSection: React.FC = () => {
                 className="group border border-border/50 bg-secondary/30 backdrop-blur-md hover:bg-secondary/60 text-foreground font-medium px-8 py-6 rounded-xl transition-all w-full sm:w-auto text-base"
                 asChild
               >
-                <a href="/Phuong_LE_CV.pdf" download="Phuong_LE_CV.pdf">
+                <a href="/CV_Phuong_LE.pdf" download="CV_Phuong_LE.pdf">
                   <Download className="mr-2 h-5 w-5 group-hover:-translate-y-1 transition-transform" />
                   Download CV
                 </a>

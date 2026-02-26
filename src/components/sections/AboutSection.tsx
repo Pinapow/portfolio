@@ -145,11 +145,11 @@ const TimelineCard = ({ item }: { item: TimelineItem }) => {
 
 const AboutSection: React.FC = () => {
   return (
-    <section id="about" className="relative py-32 overflow-hidden">
+    <section id="about" className="relative py-20 lg:py-24 overflow-hidden">
       <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div
-          className="max-w-3xl mb-24"
+          className="max-w-3xl mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
@@ -167,7 +167,7 @@ const AboutSection: React.FC = () => {
         </motion.div>
 
         {/* Floating Story Layout */}
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-32 relative">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-start mb-20 relative">
           <motion.div
             className="lg:col-span-5 relative z-20"
             initial={{ opacity: 0, x: -30 }}
@@ -278,7 +278,7 @@ const AboutSection: React.FC = () => {
                   {skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="mx-3 flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/40 border border-white/5 backdrop-blur-md grayscale hover:grayscale-0 transition-all duration-300 hover:scale-105 hover:bg-secondary/80"
+                      className="mx-3 flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/40 border border-white/5 backdrop-blur-md opacity-80 hover:opacity-100 transition-all duration-300 hover:scale-105 hover:bg-secondary/80"
                     >
                       <div style={{ color: skill.color || "currentColor" }}>
                         <skill.icon className="w-5 h-5" />

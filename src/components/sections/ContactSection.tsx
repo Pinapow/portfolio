@@ -25,7 +25,7 @@ const ContactSection: React.FC = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
-    defaultValues: { name: "", email: "", subject: "", message: "" },
+    defaultValues: { name: "", email: "", message: "" },
   });
 
   const onSubmit: SubmitHandler<FormData> = async () => {
@@ -73,7 +73,7 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="relative py-32 overflow-hidden">
+    <section id="contact" className="relative py-20 lg:py-24 overflow-hidden">
       <div className="absolute inset-0 bg-background/50 z-0"></div>
 
       {/* Decorative blurred background elements */}
@@ -289,35 +289,6 @@ const ContactSection: React.FC = () => {
                         </p>
                       )}
                     </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <Label htmlFor="subject" className="text-muted-foreground">
-                      Subject
-                    </Label>
-                    <Input
-                      id="subject"
-                      type="text"
-                      placeholder="Project Discussion"
-                      aria-invalid={errors.subject ? "true" : "false"}
-                      className={cn(
-                        "bg-background/50 border-white/10 h-12 rounded-xl transition-all duration-300 focus:bg-background/80 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/30",
-                        errors.subject &&
-                          "border-destructive focus:ring-destructive/20",
-                      )}
-                      {...register("subject", {
-                        required: "Subject is required",
-                        minLength: {
-                          value: 3,
-                          message: "Subject must be at least 3 characters",
-                        },
-                      })}
-                    />
-                    {errors.subject && (
-                      <p className="text-xs text-destructive">
-                        {errors.subject.message}
-                      </p>
-                    )}
                   </div>
 
                   <div className="space-y-3">
