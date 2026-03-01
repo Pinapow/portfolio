@@ -15,7 +15,7 @@ export interface TechIcon {
 }
 
 export const socialLinks: SocialLink[] = [
-  { icon: Github, href: "https://github.com/Pinapow", label: "GitHub" },
+  { icon: Github, href: "https://github.com/phuong-le-tech", label: "GitHub" },
   {
     icon: Linkedin,
     href: "https://www.linkedin.com/in/phuong-le77100/",

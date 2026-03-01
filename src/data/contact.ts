@@ -1,11 +1,4 @@
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Linkedin,
-  Github,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Clock, Linkedin, Github } from "lucide-react";
 import { ContactInfo, SocialLink } from "@/types";
 
 export const contactInfo: ContactInfo[] = [
@@ -44,6 +37,6 @@ export const socialLinks: SocialLink[] = [
   {
     icon: Github,
     label: "GitHub",
-    href: "https://github.com/Pinapow",
+    href: "https://github.com/phuong-le-tech",
   },
 ];

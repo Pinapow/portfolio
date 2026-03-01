@@ -43,7 +43,11 @@ const Navigation = () => {
   );
 
   const socialLinks = [
-    { icon: Github, href: "https://github.com/Pinapow", label: "GitHub" },
+    {
+      icon: Github,
+      href: "https://github.com/phuong-le-tech",
+      label: "GitHub",
+    },
     {
       icon: Linkedin,
       href: "https://linkedin.com/in/phuong-le77100",
@@ -180,14 +184,10 @@ const Navigation = () => {
               <TooltipTrigger asChild>
                 <DockIcon
                   onClick={() =>
-                    mounted &&
-                    setTheme(theme === "dark" ? "light" : "dark")
+                    mounted && setTheme(theme === "dark" ? "light" : "dark")
                   }
                   onKeyDown={(e: React.KeyboardEvent) => {
-                    if (
-                      (e.key === "Enter" || e.key === " ") &&
-                      mounted
-                    ) {
+                    if ((e.key === "Enter" || e.key === " ") && mounted) {
                       e.preventDefault();
                       setTheme(theme === "dark" ? "light" : "dark");
                     }
